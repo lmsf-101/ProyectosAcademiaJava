@@ -9,17 +9,10 @@ public class Principal {
 		
 		Jugador[] jugadores = {
 				new Jugador("panchito_23"),
-				new Jugador("elpanamiguel"),
+				new Jugador("vanguarMX"),
 				new Jugador("messilover98"),
-		};
-		
-		String[] logros = {
-				"100% Completado",
-				"El mejor de todos",
-				"Mega-Combo!",
-				"De poco a poco...",
-				"Perfeccionista",
-				"Por los pelos!"
+				new Jugador("FedericoM9"),
+				new Jugador("maestrodetodos"),
 		};
 		
 		Random rand = new Random();
@@ -27,8 +20,11 @@ public class Principal {
 		
 		for(Jugador jugador : jugadores)
 		{
-			SistemaLogros.getInstance().anadirLogro(jugador,
-										logros[rand.nextInt(logros.length)]);
+			SistemaLogros sistemaLogros = SistemaLogros.getInstance();
+			
+			sistemaLogros.anadirLogro(jugador,
+										rand.nextInt(sistemaLogros.getNumLogros()));
+			
 		
 			Thread.sleep(rand.nextInt(5000));
 		}

@@ -12,8 +12,8 @@ public class Pizza implements Receta{
 
 
 	@Override
-	public void preparar() {
-		System.err.println("Preparando la pizza " + tipo + " ...");
+	public void preparar(Chef chef) {
+		System.out.println("El chef " + chef.getNombre() +" prepara la pizza " + tipo + " ...");
 		
 	}
 

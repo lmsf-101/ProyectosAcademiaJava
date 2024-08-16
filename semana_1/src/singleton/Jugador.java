@@ -4,12 +4,10 @@ import java.util.Random;
 
 public class Jugador {
 	
-	private final int ID;
 	private String usuario;
 
 	public Jugador(String usuario) {
 		this.usuario = usuario;
-		ID = new Random().nextInt(20000);
 	}
 
 	public String getUsuario() {
@@ -20,17 +18,10 @@ public class Jugador {
 		this.usuario = usuario;
 	}
 
-	public int getID() {
-		return ID;
-	}
-
 	@Override
 	public String toString() {
-		return "JUGADOR #"+ ID + " : " + usuario;
+		return "JUGADOR : " + usuario;
 	}
-	
-	
-	
 	
 	
 	

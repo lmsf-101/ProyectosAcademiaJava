@@ -12,8 +12,8 @@ public class Taco implements Receta{
 
 
 	@Override
-	public void preparar() {
-		System.err.println("Preparando los tacos de " + tipo + " ....");
+	public void preparar(Chef chef) {
+		System.out.println("El chef " + chef.getNombre() + " prepara los tacos de " + tipo + " ....");
 		
 	}
 
