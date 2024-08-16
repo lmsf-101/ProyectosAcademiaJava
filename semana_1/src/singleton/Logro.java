@@ -1,5 +1,7 @@
 package singleton;
 
+
+// Clase de Logro
 public class Logro {
 	
 	private int ID;

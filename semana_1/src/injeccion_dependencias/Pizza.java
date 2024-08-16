@@ -10,7 +10,7 @@ public class Pizza implements Receta{
 		this.tipo = tipo;
 	}
 
-
+	// Prepara la pizza...
 	@Override
 	public void preparar(Chef chef) {
 		System.out.println("El chef " + chef.getNombre() +" prepara la pizza " + tipo + " ...");

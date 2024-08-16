@@ -1,7 +1,6 @@
 package singleton;
 
-import java.util.Random;
-
+// Clase Jugador
 public class Jugador {
 	
 	private String usuario;

@@ -10,7 +10,8 @@ public class Hamburguesa implements Receta{
 		this.tipo = tipo;
 	}
 
-
+	
+	// Prepara la hamburguesa...
 	@Override
 	public void preparar(Chef chef) {
 		System.out.println("El chef " + chef.getNombre() + " prepara la hamburguesa tipo " + tipo + " ....");
