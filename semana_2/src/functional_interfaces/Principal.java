@@ -11,6 +11,8 @@ public class Principal {
 				new EjemplosConsumer(),
 				new SupplierExamples(),
 				new PredicateExamples(),
+				new FunctionExamples(),
+				new OperatorExamples()
 		};
 		
 		for (FuncInterfaceExamples example : examples) {

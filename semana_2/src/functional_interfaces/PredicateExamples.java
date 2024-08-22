@@ -3,7 +3,11 @@ package functional_interfaces;
 import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PredicateExamples implements FuncInterfaceExamples{
@@ -17,6 +21,7 @@ public class PredicateExamples implements FuncInterfaceExamples{
 		System.out.println("BIPREDICATE EXAMPLES : ");
 		DuoPredicate.isContainedInList(List.of("Hello", "World", "Java", "!", 2, 5), 5);
 		DuoPredicate.isBiggerThan1000(4.0, 10.0);
+		DuoPredicate.isDateBefore(new Date(), new SimpleDateFormat("dd-MM-yyyy").parse("18-12-2026", new ParsePosition(0)));
 		
 	}
 
@@ -24,7 +29,7 @@ public class PredicateExamples implements FuncInterfaceExamples{
 		
 		public static void isLastCharLetter(String s) {
 			
-			System.out.println("Check if String {" + s + "} contains a letter as its last char: ");
+			System.out.println("\nCheck if String {" + s + "} contains a letter as its last char: ");
 			
 			Predicate<String> checkLastChar = (str -> Character.isLetter(str.charAt(str.length()-1)));
 			
@@ -34,7 +39,7 @@ public class PredicateExamples implements FuncInterfaceExamples{
 		}
 		
 		public static void numberRaffle(Integer luckyNumber) {
-			System.out.println("Is the number " + luckyNumber + " the lucky number of the Raffle? ");
+			System.out.println("\nIs the number " + luckyNumber + " the lucky number of the Raffle? ");
 			
 			Random rand = new Random();
 			int totalNumbers = rand.nextInt(1, (luckyNumber+1) + rand.nextInt(11));
@@ -71,6 +76,17 @@ public class PredicateExamples implements FuncInterfaceExamples{
 			boolean isBigger = checkExponential.test(num1, num2);
 			
 			System.out.println("Is " + Math.pow(num1, num2) + " bigger than 1000 ? " + isBigger);
+			
+		}
+		
+		public static void isDateBefore(Date firstDate, Date secondDate) {
+			System.out.println("\nDoes the date " + firstDate.toString() + " comes before " + secondDate.toString() +"?");
+			
+			BiPredicate<Date, Date> checkDates = (date1, date2) -> date1.before(date2);
+			
+			boolean isOlderDate = checkDates.test(firstDate, secondDate);
+			
+			System.out.println(isOlderDate);
 			
 		}
 	}
