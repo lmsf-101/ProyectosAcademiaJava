@@ -2,17 +2,64 @@ package stream.soccer_scouts;
 
 public class Defender extends Player {
 	
-	int duelsWon;
-	int numIntercepcions;
+	private int duelsWon;
+	private int numInterceptions;
 	
 	
-	
-	
-	public Defender(String name, short age, Position position, int gamesPlayed, int duelsWon, int numIntercepcions) {
-		super(name, age, Po, gamesPlayed);
-		this.duelsWon = duelsWon;
-		this.numIntercepcions = numIntercepcions;
+	public Defender(String name, int age, float height) {
+		this(name, age, height, 0, 0, 10000f, 0);
 	}
+	
+	
+	public Defender(String name, int age, float height, int duelsWon, int numInterceptions, int gamesPlayed) {
+		super(name, age, height, Position.getRandomDefenderPosition(), 10000f, gamesPlayed);
+		this.duelsWon = duelsWon;
+		this.numInterceptions = numInterceptions;
+	}
+	
+	
+	public Defender(String name, int age, float height, int duelsWon, int numInterceptions, float marketValue, int gamesPlayed) {
+		super(name, age, height, Position.getRandomDefenderPosition(), marketValue, gamesPlayed);
+		this.duelsWon = duelsWon;
+		this.numInterceptions = numInterceptions;
+	}
+	
+	
+	
+	public double duelsWinRatio() {
+		return (double)duelsWon / numInterceptions;
+	}
+
+	
+	@Override
+	public String toString() {
+		return super.toString() + "\nDUELS WON : " + duelsWon + "\nNUMBER OF INTERCEPTIONS : " + numInterceptions + printLine();
+	}
+
+
+	public int getDuelsWon() {
+		return duelsWon;
+	}
+
+	public void setDuelsWon(int duelsWon) {
+		this.duelsWon = duelsWon;
+	}
+	
+	public int getNumIntercepcions() {
+		return numInterceptions;
+	}
+
+	public void setNumIntercepcions(int numIntercepcions) {
+		this.numInterceptions = numIntercepcions;
+	}
+
+
+	@Override
+	public double ratio() {
+		return (double)numInterceptions / gamesPlayed;
+	}
+	
+	
 	
 	
 	

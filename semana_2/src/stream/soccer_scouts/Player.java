@@ -1,25 +1,36 @@
 package stream.soccer_scouts;
 
-public class Player {
+public abstract class Player {
 	
 
 	String name;
-	short age;
+	int age;
 	float height;
-	Position position;
+	float marketValue;
 	int gamesPlayed;
+	Position position;
 	
 	
-	public Player(String name, short age, Position position, int gamesPlayed) {
+	public Player(String name, int age, float height, Position position, float marketValue, int gamesPlayed) {
 		this.name = name;
 		this.age = age;
+		this.height = height;
 		this.position = position;
+		this.marketValue = marketValue;
 		this.gamesPlayed = gamesPlayed > 0 ? gamesPlayed : 0;
 	}
+	
+	public Player(String name, int age, float height, Position position) {
+		this(name, age, height, position, 15000f, 0);
+	}
+	
+	
 	
 	public String getPosition() {
 		return position.name();
 	}
+	
+	public abstract double ratio();
 	
 	
 
@@ -39,18 +50,33 @@ public class Player {
 		this.name = name;
 	}
 
-	public short getAge() {
+	public int getAge() {
 		return age;
 	}
 
 	public float getHeight() {
 		return height;
 	}
+	
+	
+
+	public float getMarketValue() {
+		return marketValue;
+	}
+
+	public void setMarketValue(float marketValue) {
+		this.marketValue = marketValue;
+	}
 
 	@Override
 	public String toString() {
-		return "PLAYER : " + name + "\nAGE : " + age + "\nHEIGHT : " + height + "\nPOSITION : " + getPosition() 
-				+ "\nGAMES PLAYED : " + gamesPlayed;   
+		return "PLAYER : " + name + " - AGE : " + age + " - HEIGHT : " + height + "m - POSITION : " + getPosition() 
+				+ " - GAMES PLAYED : " + gamesPlayed + " - MARKET VALUE : $" + marketValue;   
+	}
+	
+	
+	String printLine() {
+		return "\n\n*********************************\n";
 	}
 	
 	

@@ -24,7 +24,7 @@ public enum Position {
 		return getRandomPosition(1, 3);
 	}
 	
-	static Position getRandomMiddlePosition() {
+	static Position getRandomMidfielderPosition() {
 		return getRandomPosition(4, 6);
 	}
 	

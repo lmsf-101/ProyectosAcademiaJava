@@ -4,18 +4,37 @@ public class GoalKeeper extends Player{
 	
 	int numSaves;
 	int cleanSheetMatches;
-
-	public GoalKeeper(String name, short age, int gamesPlayed) {
-		super(name, age, Position.GK, gamesPlayed);
+	
+	public GoalKeeper(String name, int age, float height) {
+		super(name, age, height, Position.GK, 12000f, 0);
 		numSaves = 0;
 		cleanSheetMatches = 0;
 	}
 	
-	public GoalKeeper(String name, short age, int gamesPlayed, int numSaves, int cleanSheetMatches) {
-		super(name, age, Position.GK, gamesPlayed);
-		this.numSaves = 0;
-		this.cleanSheetMatches = 0;
+	public GoalKeeper(String name, int age, float height, int numSaves, int cleanSheetMatches, int gamesPlayed) {
+		super(name, age, height, Position.GK, 12000f, gamesPlayed);
+		this.numSaves = numSaves;
+		this.cleanSheetMatches = cleanSheetMatches;
 	}
+	
+	public GoalKeeper(String name, int age, float height, int numSaves, int cleanSheetMatches, float marketValue, int gamesPlayed) {
+		super(name, age, height, Position.GK, marketValue, gamesPlayed);
+		this.numSaves = numSaves;
+		this.cleanSheetMatches = cleanSheetMatches;
+	}
+	
+	
+	
+	public double getCleanSheetRatio() {
+		return (double)cleanSheetMatches / gamesPlayed;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return super.toString() + "\nNUMBER OF SAVES : " + numSaves + "\nNUM. OF MATCHES WITH CLEAN SHEET : " + cleanSheetMatches + printLine();
+	}
+
 
 	public int getNumSaves() {
 		return numSaves;
@@ -31,6 +50,11 @@ public class GoalKeeper extends Player{
 
 	public void setCleanSheetMatches(int cleanSheetMatches) {
 		this.cleanSheetMatches = cleanSheetMatches;
+	}
+
+	@Override
+	public double ratio() {
+		return (double)cleanSheetMatches*2 / gamesPlayed;
 	}
 	
 	
