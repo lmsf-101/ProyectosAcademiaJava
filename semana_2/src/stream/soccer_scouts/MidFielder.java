@@ -2,8 +2,8 @@ package stream.soccer_scouts;
 
 public class MidFielder extends Player{
 	
-	int numCompletedPasses;
-	int assists;
+	private int numCompletedPasses;
+	private int assists;
 	
 	public MidFielder(String name, int age, float height) {
 		super(name, age, height, Position.getRandomMidfielderPosition(), 15000f, 0);
@@ -25,14 +25,18 @@ public class MidFielder extends Player{
 	
 	
 	
-	public double getCleanSheetRatio() {
+	public double assistRatio() {
 		return (double)assists / gamesPlayed;
+	}
+	
+	public double completePassRatio() {
+		return (double)numCompletedPasses / gamesPlayed;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return super.toString() + "\nNUMBER OF SAVES : " + numCompletedPasses + "\nNUM. OF MATCHES WITH CLEAN SHEET : " + assists + printLine();
+		return super.toString() + "\nCOMPLETED PASSES : " + numCompletedPasses + "\nASSISTS : " + assists + printLine();
 	}
 
 
@@ -48,9 +52,13 @@ public class MidFielder extends Player{
 		return assists;
 	}
 	
+	public void setAssists(int assists) {
+		this.assists = assists;
+	}
+	
 	@Override
 	public double ratio() {
-		return (double)(numCompletedPasses + assists * 2) / gamesPlayed;
+		return (assistRatio()*2 + completePassRatio()) / 2;
 	}
 	
 	

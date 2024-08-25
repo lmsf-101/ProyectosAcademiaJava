@@ -26,8 +26,12 @@ public class Defender extends Player {
 	
 	
 	
-	public double duelsWinRatio() {
-		return (double)duelsWon / numInterceptions;
+	public double duelsWonRatio() {
+		return gamesPlayed > 0 ? (double)duelsWon / gamesPlayed : 0;
+	}
+	
+	public double numInterceptionsRatio() {
+		return gamesPlayed > 0 ? (double)numInterceptions / gamesPlayed : 0;
 	}
 
 	
@@ -56,7 +60,7 @@ public class Defender extends Player {
 
 	@Override
 	public double ratio() {
-		return (double)numInterceptions / gamesPlayed;
+		return (duelsWonRatio() * 2 + numInterceptionsRatio()) / 2;
 	}
 	
 	

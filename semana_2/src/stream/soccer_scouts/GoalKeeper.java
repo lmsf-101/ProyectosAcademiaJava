@@ -2,8 +2,8 @@ package stream.soccer_scouts;
 
 public class GoalKeeper extends Player{
 	
-	int numSaves;
-	int cleanSheetMatches;
+	private int numSaves;
+	private int cleanSheetMatches;
 	
 	public GoalKeeper(String name, int age, float height) {
 		super(name, age, height, Position.GK, 12000f, 0);
@@ -25,8 +25,12 @@ public class GoalKeeper extends Player{
 	
 	
 	
-	public double getCleanSheetRatio() {
-		return (double)cleanSheetMatches / gamesPlayed;
+	public double cleanSheetRatio() {
+		return gamesPlayed > 0 ? (double)cleanSheetMatches / gamesPlayed : 0;
+	}
+	
+	public double savesRatio() {
+		return gamesPlayed > 0 ? (double)numSaves / gamesPlayed : 0;
 	}
 	
 	
@@ -54,7 +58,7 @@ public class GoalKeeper extends Player{
 
 	@Override
 	public double ratio() {
-		return (double)cleanSheetMatches*2 / gamesPlayed;
+		return (cleanSheetRatio() * 2 + savesRatio()) / 2;
 	}
 	
 	

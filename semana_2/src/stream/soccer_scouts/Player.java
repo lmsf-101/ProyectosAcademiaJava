@@ -2,6 +2,7 @@ package stream.soccer_scouts;
 
 public abstract class Player {
 	
+	// Abstract Player class to establish common soccer player's properties and functions:
 
 	String name;
 	int age;
@@ -26,8 +27,8 @@ public abstract class Player {
 	
 	
 	
-	public String getPosition() {
-		return position.name();
+	public Position getPosition() {
+		return position;
 	}
 	
 	public abstract double ratio();
@@ -70,7 +71,7 @@ public abstract class Player {
 
 	@Override
 	public String toString() {
-		return "PLAYER : " + name + " - AGE : " + age + " - HEIGHT : " + height + "m - POSITION : " + getPosition() 
+		return "PLAYER : " + name + " - AGE : " + age + " - HEIGHT : " + height + "m - POSITION : " + position.name()
 				+ " - GAMES PLAYED : " + gamesPlayed + " - MARKET VALUE : $" + marketValue;   
 	}
 	

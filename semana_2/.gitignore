@@ -11,6 +11,9 @@ local.properties
 .loadpath
 .recommenders
 
+# Ignore The Collections source codes from the repo
+src/collections/
+
 # External tool builders
 .externalToolBuilders/
 
