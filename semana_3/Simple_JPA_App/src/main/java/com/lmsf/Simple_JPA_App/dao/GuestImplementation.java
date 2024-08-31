@@ -39,33 +39,39 @@ public class GuestImplementation implements GuestDAO {
 	public void removeGuest(int id) {
 		// retrieve the student
         Guest retrievedGuest = entityManager.find(Guest.class, id);
-		entityManager.remove(retrievedGuest);
+		entityManager.remove(retrievedGuest); // <- Removes the guest from the database...
 		
 	}
 
 	@Override
 	public Guest getGuestByID(int id) {
+		// Find the guest in the database, based on their ID:
 		return entityManager.find(Guest.class, id);
 
 	}
 	
 	@Override
 	public List<Guest> getGuestsByName(String name) {
+		// Create a query that retrieves the guests that contains a specific name:
 		TypedQuery<Guest> searchQuery =	entityManager.createQuery(
 					"FROM Guest WHERE name LIKE :specificName", Guest.class
 					);
 		
+		// Set up the parameter query to that of the function's parameter
 		searchQuery.setParameter("specificName", "%"+ name + "%");
 		
+		// Return all the records that meets the condition (if any):
 		return searchQuery.getResultList();
 	}
 	
 	@Override
 	public List<Guest> getAllGuests() {
+		// Retrieve ALL the guest records from the table.
 		TypedQuery<Guest> searchQuery = entityManager.createQuery(
 					"FROM Guest", Guest.class
 				);
 		
+		// Return said records:
 		return searchQuery.getResultList();
 	}
 

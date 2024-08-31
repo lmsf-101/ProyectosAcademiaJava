@@ -10,6 +10,13 @@ import org.springframework.context.annotation.Bean;
 import com.lmsf.Simple_JPA_App.dao.GuestDAO;
 import com.lmsf.Simple_JPA_App.entities.Guest;
 
+/*
+ * SPRING BOOT + JPA PROJECT EXAMPLE, APPLYING CRUD OPERATIONS
+ * Made by: Luis Miguel Sánchez Flores.
+ * 
+ */
+
+
 @SpringBootApplication
 public class SimpleJpaAppApplication {
 
@@ -21,6 +28,7 @@ public class SimpleJpaAppApplication {
 	public CommandLineRunner commandLineRunner(GuestDAO guestDAO) {
 		return runner -> {
 			
+			// Guest object to test out the CRUD operations:
 			Guest testGuest = new Guest("Troy Baker", "troy_bake90@gmail.com", 12, "2024-11-03", "2024-11-07");
 			
 			// Add the new guest into the database:
@@ -63,20 +71,26 @@ public class SimpleJpaAppApplication {
 	private void searchGuest(GuestDAO guestDAO, int id) {
 		System.out.println("\nRetrieving guest info by ID "+id+"...");
 		
+		// Pass the ID argument into the DAO function to retrieve the guest:
 		Guest retrievedGuest = guestDAO.getGuestByID(id);
 		
+		
+		// If there is no guest in the table with the specified ID, print out the following message:
 		if(retrievedGuest == null)
 			System.out.println("No guest with the ID of " + id + " was found in the database...");
+		
+		// Otherwise, display the retrieved guest
 		else
-			// display student
 			System.out.println("RETRIEVED GUEST: " + retrievedGuest);
 	}
 	
 	private void getAllGuests(GuestDAO guestDAO) {
 		System.out.println("\nRetrieving all guests from the database...");
 		
+		// Get all the guests from the table:
 		List<Guest> retrievedGuests = guestDAO.getAllGuests();
 		
+		// Print out each guest's info:
 		System.out.println("ALL GUESTS :");
 		printGuests(retrievedGuests);
 	}
@@ -84,12 +98,16 @@ public class SimpleJpaAppApplication {
 	private void searchGuestsByName(GuestDAO guestDAO, String name) {
 		System.out.println("\nRetrieving all guests that contain the string : "+name+"...");
 		
+		
+		// Get the list of guests that contains the specified name argument:
 		List<Guest> retrievedGuests = guestDAO.getGuestsByName(name);
 		
+		// Display all the guests that met the condition:
 		System.out.println("RETRIEVED GUESTS: ");
 		printGuests(retrievedGuests);
 	}
 	
+	// Auxiliary function:
 	private void printGuests(List<Guest> guestList) {
 		guestList.forEach(System.out::println);
 	}
@@ -103,7 +121,7 @@ public class SimpleJpaAppApplication {
 		// Update the guest's room number : 
 		retrievedGuest.setRoomNum(999);
 		
-		// Update the guests in the database:
+		// Update the guest in the database:
 		guestDAO.updateGuest(retrievedGuest);
 		
 		System.out.println("UPDATED GUEST :" + retrievedGuest);

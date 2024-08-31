@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Guest {
 	
 	@Id // <- PRIMARY KEY	
-	@GeneratedValue(strategy=GenerationType.IDENTITY) // <- Specify how to assign primary keys for new objects
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // <- Specify how the primary keys for new objects are assigned
 	@Column(name="id") // <- Map to the corresponding column of the table
 	private int id;
 	
