@@ -1,36 +1,36 @@
 package builder;
 
-import java.util.ArrayList;
-
-public class FlexibleScheduleBuilder implements ScheduleBuilder{
-
-	private int semester;
-	private ArrayList<Course> courses;
-	private int totalCredits;
-	
+public class FlexibleScheduleBuilder extends ScheduleBuilder {
+	public static int MINIMUM_CREDITS = 8;
 	
 	public FlexibleScheduleBuilder(int semester) {
-		this.semester = semester;
-		courses = new ArrayList<>();
-		totalCredits = 0;
+		super(semester);
 	}
 
 	@Override
-	public FlexibleScheduleBuilder addCourse(Course c) {
+	public ScheduleBuilder addCourse(Course c) {
 		courses.add(c);
 		return this;
 	}
 
 	@Override
-	public FlexibleScheduleBuilder setCredits() {
-		courses.forEach(
-				course -> totalCredits += course.getCredits()
-		);
+	public ScheduleBuilder setCredits() {
+		totalCredits = 0;
+		courses.forEach(course -> totalCredits += course.getCredits());
 		return this;
 	}
 	
-	public ClassSchedule getSchedule() {
-		return new ClassSchedule(semester, courses, totalCredits);
+	@Override
+	public int getMinimumCredits() {
+		return MINIMUM_CREDITS;
 	}
-
+	
+	@Override
+	public boolean isValidSchedule() {
+		return totalCredits >= MINIMUM_CREDITS;
+	}
+	
+	public int getCredits() {
+		return totalCredits;
+	}
 }

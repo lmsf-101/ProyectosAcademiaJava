@@ -1,5 +1,7 @@
 package builder;
 
+import java.util.Objects;
+
 public class Course {
 	
 	private String code;
@@ -39,6 +41,23 @@ public class Course {
 	@Override
 	public String toString() {
 		return "["+ code + " - " + name + " (" + credits + " credits)]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(code, credits, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		return Objects.equals(code, other.code) && credits == other.credits && Objects.equals(name, other.name);
 	}
 	
 	
