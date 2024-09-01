@@ -2,6 +2,8 @@ package builder;
 
 import java.util.Objects;
 
+// Course class which serves as the basic unit for the schedule to generate.
+
 public class Course {
 	
 	private String code;
@@ -13,6 +15,8 @@ public class Course {
 		this.name = name;
 		this.credits = credits;
 	}
+	
+	// GETTERS AND SETTERS
 
 	public String getCode() {
 		return code;
@@ -37,12 +41,14 @@ public class Course {
 	public void setCredits(int credits) {
 		this.credits = credits;
 	}
-
+	
+	// Overrides toString to showcase the code, name and credits of the Course object:
 	@Override
 	public String toString() {
 		return "["+ code + " - " + name + " (" + credits + " credits)]";
 	}
-
+	
+	// Override hashCode() and equals() for a proper comparison between two Course objects:
 	@Override
 	public int hashCode() {
 		return Objects.hash(code, credits, name);

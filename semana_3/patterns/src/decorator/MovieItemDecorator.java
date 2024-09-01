@@ -1,6 +1,8 @@
 package decorator;
 
 // DECORATOR
+// Has a reference to a wrapped object. Must be declared as the Component interface in order
+// to contain both a concrete Component or other decorators. Delegates all operations to the wrapped object
 public abstract class MovieItemDecorator implements MovieItem {
 	
 	// HAS-A
@@ -22,7 +24,7 @@ public abstract class MovieItemDecorator implements MovieItem {
 	@Override
 	public String getItem() {
 		return item.getItem() + "\n"
-				+ name + " - "+  price + "\n";
+				+ name + " - "+  price;
 	}
 
 	@Override

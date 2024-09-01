@@ -2,6 +2,10 @@ package decorator;
 
 
 // CONCRETE / BASE COMPONENT
+
+// Represents the base object to be wrapped with additional properties or actions.
+// In this case, a basic movie ticket:
+
 public class MovieTicket implements MovieItem {
 
 	String movie;
@@ -27,7 +31,6 @@ public class MovieTicket implements MovieItem {
 	public String toString() {
 		return this.getItem();
 	}
-	
 	
 
 }

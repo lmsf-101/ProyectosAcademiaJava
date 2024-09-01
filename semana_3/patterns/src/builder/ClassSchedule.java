@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+// PRODUCT
+// Represents the complex object built with the Builder pattern:
+
 public class ClassSchedule {
 	
 	private int semester;
@@ -17,6 +20,7 @@ public class ClassSchedule {
 		this.totalCredits = totalCredits;
 	}
 	
+	// GETTERS
 	
 	public int getSemester() {
 		return semester;
@@ -29,7 +33,7 @@ public class ClassSchedule {
 		return totalCredits;
 	}
 
-
+	// Override hashCode() and equals() for a proper comparison between two schedules:
 
 	@Override
 	public int hashCode() {

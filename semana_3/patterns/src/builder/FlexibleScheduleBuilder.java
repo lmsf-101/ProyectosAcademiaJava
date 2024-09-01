@@ -1,5 +1,9 @@
 package builder;
 
+// CONCRETE BUILDER
+// Implements the Builder's functions to put togheter the necessary components of
+// the ClassSchedule for a Student
+
 public class FlexibleScheduleBuilder extends ScheduleBuilder {
 	public static int MINIMUM_CREDITS = 8;
 	

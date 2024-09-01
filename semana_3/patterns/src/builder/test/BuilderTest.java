@@ -3,7 +3,6 @@ package builder.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,14 @@ import builder.Course;
 import builder.FlexibleScheduleBuilder;
 import builder.ScheduleBuilder;
 import builder.Student;
+
+/*
+ * JAVA PROGRAM EXAMPLE SHOWCASING THE BUILDER PATTERN
+ * APPLYING UNIT TESTS
+ * Made by: Luis Miguel Sánchez Flores
+ */
+
+
 
 class BuilderTest {
 	
@@ -43,9 +50,11 @@ class BuilderTest {
 		
 	}
 	
+	
+	// Test if the ScheduleBuilder is able to add the course into the list correctly:
 	@Test
 	void testAddedCourse() {
-		System.out.println("TEST #4 - TEST ADD COURSE");
+		System.out.println("TEST #1 - TEST ADD COURSE");
 		Course courseToAdd = COURSE_CATALOG.get("CS301");
 		
 		ClassSchedule cs = new FlexibleScheduleBuilder(1)
@@ -54,12 +63,14 @@ class BuilderTest {
 		
 		assertEquals(courseToAdd, cs.getCourses().get(0));
 		
-		System.out.println("TEST #4 - TEST ADD COURSE FINISHED\n");
+		System.out.println("TEST #1 - TEST ADD COURSE FINISHED\n");
 	}
 	
+	// Test if the ScheduleBuilder provides the correct ClassSchedule, based on
+	// the provided courses shown below:
 	@Test
 	void testClassScheduleGeneration() {
-		System.out.println("TEST #3 - GENERATE CLASS SCHEDULE");
+		System.out.println("TEST #2 - GENERATE CLASS SCHEDULE");
 		
 		List<Course> testCourses = getTestCourses(
 				"ART310",
@@ -75,32 +86,43 @@ class BuilderTest {
 								.getSchedule();
 		
 		assertEquals(expectedSchedule, cs);
-		System.out.println("TEST #3 - GENERATE CLASS SCHEDULE FINISHED\n");
+		System.out.println("TEST #2 - GENERATE CLASS SCHEDULE FINISHED\n");
 	}
 	
+	
+	// Test out if the created schedule DOES NOT satisfy the min. amount of credits required:
 	@Test
 	void testLackOfMinimumCredits() {
+		
+		System.out.println("TEST #3 - INSUFICIENT AMOUNT OF CREDITS");
 		
 		boolean isValid = new FlexibleScheduleBuilder(0)
 								.addCourse(COURSE_CATALOG.get("MUS121"))
 								.addCourse(COURSE_CATALOG.get("ART310"))
+								.setCredits()
 								.isValidSchedule();
 		
 		assertFalse(isValid);
 		
+		System.out.println("TEST #3 - INSUFICIENT AMOUNT OF CREDITS FINISHED\n");
+		
 	}
 	
+	
+	// Complex test to verify if the Administrator is able to assign
+	// a correct schedule is assigned to the student:
 	@Test
 	void testCorrectSchedule() {
 		
-			System.out.println("TEST #1 - CORRECT CLASS SCHEDULE");
-		
+			System.out.println("TEST #4 - CORRECT CLASS SCHEDULE");
+			
 		   List<Course> listCourses = getTestCourses(
 				   "CS101",
 				   "MATH123",
 				   "ENG110"
 				   );
 		   
+		   // The expected schedule to be assigned to the student:
 		   ClassSchedule expectedSchedule = new ClassSchedule(
 				   5, listCourses, 11
 		   );
@@ -119,40 +141,47 @@ class BuilderTest {
 	        							    .addCourse(COURSE_CATALOG.get("ENG110"))
 	        							    .setCredits();
 
-	        // Director gets the concrete builder object from the client
-	        // (application code). That's because application knows better which
-	        // builder to use to get a specific product.
-	        
+
+	        // Asign the schedule to the student:
 	        admin.assignSchedule(student, flexSchedule);
 
+	        // Print out the student's schedule:
 	        System.out.println("STUDENT SCHEDULE : \n" + student.getCurrentSchedule());
-	        
+	        	
+	        // Check if the student's schedule is the one expected:
 	        assertEquals(expectedSchedule, student.getCurrentSchedule(), "This is an error");
 	        
-	        System.out.println("TEST #1 - CORRECT CLASS SCHEDULE FINISHED\n");
+	        System.out.println("TEST #4 - CORRECT CLASS SCHEDULE FINISHED\n");
 	}
-	
+
+	// Complex test to verify if the Administrator is able to assign
+	// a correct schedule is assigned to the student:
 	@Test
 	void testIncompleteSchedule() {
 		
-		System.out.println("TEST #2 - INCOMPLETE CLASS SCHEDULE (less than Min. amount of credits required)");
+		System.out.println("TEST #5 - INCOMPLETE CLASS SCHEDULE (less than Min. amount of credits required)");
 		
 		Administrator admin = new Administrator();
 		
 		Student student = new Student("Ashley Cole");
 		
+		// Create an incomplete schedule:
 		ScheduleBuilder flexSchedule = new FlexibleScheduleBuilder(7)
 				.addCourse(COURSE_CATALOG.get("BIOL205"))
 			    .setCredits();
 		
+		// Try to assign it to a student:
 		admin.assignSchedule(student, flexSchedule);
 		
+		// The administrator SHOULD reject the assignment, thus leaving the student's current schedule as null.
 		assertNull(student.getCurrentSchedule());
 		
-		System.out.println("TEST #2 - INCOMPLETE CLASS SCHEDULE FINISHED\n");
+		System.out.println("TEST #5 - INCOMPLETE CLASS SCHEDULE FINISHED\n");
 	}
 	
 // --------------------------------------------------------------------
+	
+	// ADDITIONAL TESTS TO INCREMENT THE COVERAGE OF THE CODE
 	
 	@Test
 	void testClassScheduleEqualsAndHash() {

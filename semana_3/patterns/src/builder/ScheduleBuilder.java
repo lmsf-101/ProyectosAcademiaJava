@@ -2,6 +2,10 @@ package builder;
 
 import java.util.ArrayList;
 
+
+// BUILDER
+// Abstract class that declares the necessary components to create a ClassSchedule:
+
 public abstract class ScheduleBuilder {
 	
 	int semester;

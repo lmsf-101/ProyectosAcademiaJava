@@ -1,5 +1,7 @@
 package builder;
 
+// Auxiliary class Student to be assigned with a generated schedule: 
+
 public class Student {
 	private final int ID;
 	private String name;
@@ -11,6 +13,8 @@ public class Student {
 		ID = ++numStudents;
 		this.name = name;
 	}
+	
+	// GETTERS AND SETTERS
 
 	public String getName() {
 		return name;
