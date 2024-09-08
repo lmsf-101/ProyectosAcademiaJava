@@ -7,7 +7,7 @@ import com.lmsf.spring_data_jpa.entity.Student;
 import com.lmsf.spring_data_jpa.entity.Student.Gender;
 
 public interface StudentService {
-	//CREATE
+		//CREATE
 		Student saveStudent(Student newStudent);
 		
 		//READ

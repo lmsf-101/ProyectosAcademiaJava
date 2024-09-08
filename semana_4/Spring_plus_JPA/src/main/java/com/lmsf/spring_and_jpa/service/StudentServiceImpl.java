@@ -11,19 +11,17 @@ import com.lmsf.spring_and_jpa.entity.Student.Gender;
 
 import jakarta.transaction.Transactional;
 
+// Service Implementation
 @Service
 public class StudentServiceImpl implements StudentService{
 
+	// Inject the JPA repository needed for interacting with the database:
 	@Autowired
 	private StudentDAO studentDAO;
 	
 	
-//	public StudentServiceImpl(StudentDAO studentDAO) {
-//		this.studentDAO = studentDAO;
-//	}
-
 	@Override
-	@Transactional
+	@Transactional // <- Specify as a transaction process to ensure data consistency
 	public Student saveStudent(Student newStudent) {
 		
 		Student addedStudent = studentDAO.saveStudent(newStudent);
@@ -34,15 +32,12 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public Student findByID(int id) {
-		//System.out.println("Searching for student with ID #" + id);
 		
 		Student retrievedStudent = studentDAO.findByID(id);
 		
-//		if(retrievedStudent == null)
-//			System.err.println("\nNo student with ID #"+id+ " was found...");
-//		
-//		else
-//			System.out.println("\nStudent retrieved : \n"+retrievedStudent);
+		if(retrievedStudent == null) // <- If there was no student retrieved, throw a RuntimeException:
+			throw new RuntimeException("\nNo student with ID #"+id+ " was found...");
+
 		
 		return retrievedStudent;
 	}
@@ -58,65 +53,40 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public List<Student> retrieveStudentsByName(String firstName, String lastName) {
-		//System.out.println("Retreiving students with name : " + firstName + " " + lastName);
+	public List<Student> findStudentsByName(String firstName, String lastName) {
 		
-		List<Student> students = studentDAO.retrieveStudentsByName(firstName, lastName);
-		
-//		System.out.println("STUDENTS : \n");
-//		students.forEach(System.out::println);
-		
+		List<Student> students = studentDAO.findStudentsByName(firstName, lastName);
+
 		return students;
 	}
 
 	@Override
 	public List<Student> findStudentsWithoutPhoneNum() {
-		//System.out.println("Retreiving students without a phone number: ");
 		
 		List<Student> students = studentDAO.findStudentsWithoutPhoneNum();
-		
-		//System.out.println("STUDENTS : \n");
-		//students.forEach(System.out::println);
 		
 		return students;
 	}
 
 	@Override
-	public List<Student> retrieveStudentsByGender(Gender gender) {
-		//System.out.println("Retreiving students by gender : " + gender.name());
+	public List<Student> findStudentsByGender(Gender gender) {
 		
-		List<Student> students = studentDAO.retrieveStudentsByGender(gender);
-		
-		//System.out.println("STUDENTS : \n");
-		//students.forEach(System.out::println);
+		List<Student> students = studentDAO.findStudentsByGender(gender);
 		
 		return students;
 	}
-
-//	@Override
-//	@Transactional
-//	public Student updateStudent(Student student) {
-//		System.out.println("Updating the student with ID #"+student.getId());
-//		
-//		//Student retrievedStudent = studentDAO.findByID(student.getId());
-//				
-//		studentDAO.updateStudent(student);
-//		
-//		System.out.println("Updated student.");
-//		System.out.println("\nSTUDENT :\n" + student);
-//		
-//		return student;
-//		
-//	}
 
 	@Override
 	@Transactional
 	public void deleteStudent(int id) {
-		//System.out.println("Deleting the student from database with ID #"+id);
+		
+		Student student = findByID(id);
+		
+		if(student == null) // <- If there was no student retrieved, throw a RuntimeException:
+			throw new RuntimeException("\nNo student with ID #"+id+ " was found. No delete operation was made.");
 		
 		studentDAO.deleteStudent(id);
 		
-		//System.out.println("Student deleted succesfully.");
 	}
 
 }

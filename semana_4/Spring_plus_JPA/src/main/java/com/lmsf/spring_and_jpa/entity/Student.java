@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
+// Student entity used by JPA to map between the POJO and the MySQL schema:
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,7 +24,7 @@ public class Student {
 		Other
 	}
 	
-	// Definir attributos
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")

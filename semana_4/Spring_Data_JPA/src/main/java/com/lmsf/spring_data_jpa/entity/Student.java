@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+// ENTITY FOR THE TABLE TO BE GENERATED:
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,7 +23,7 @@ public class Student {
 		Other
 	}
 	
-	// Definir attributos
+	// Attributes
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")

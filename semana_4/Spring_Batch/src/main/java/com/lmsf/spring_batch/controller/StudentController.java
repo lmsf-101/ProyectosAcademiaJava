@@ -16,19 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/students/jobs")
+@RequestMapping("/students/jobs") // <- Initial URL to access the controller
 public class StudentController {
 	
 	@Autowired
-	private JobLauncher jobLauncher;
+	private JobLauncher jobLauncher; // <- Manages the jobs to execute
 	
 	@Autowired
-	private Job job;
+	private Job job; // <- Set of steps that perform a specific action in an organized fashion
 	
 	
 	
+	// POST request where the job is executed:
 	@PostMapping("/students-without-phone-number")
 	public void getStudentsWithoutPhoneNumber() throws Exception  {
+		// add a simple Job parameter:
 		JobParameters params = new JobParametersBuilder()
 						.addLocalDateTime("startedAt", LocalDateTime.now())
 						.toJobParameters();

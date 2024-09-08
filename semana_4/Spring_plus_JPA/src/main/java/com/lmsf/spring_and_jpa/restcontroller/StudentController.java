@@ -16,12 +16,18 @@ import com.lmsf.spring_and_jpa.entity.Student;
 import com.lmsf.spring_and_jpa.entity.Student.Gender;
 import com.lmsf.spring_and_jpa.service.StudentService;
 
+
+// Rest Controller to expose the service layer through endpoints accessible through HTTP requests:
 @RestController
 @RequestMapping("/")
 public class StudentController {
 	
+	// Inject the service's implementation to the controller
 	@Autowired
 	private StudentService studentService;
+	
+	
+	//GET Requests examples:
 	
 	@GetMapping("/students")
 	public List<Student> findAllStudents() {
@@ -34,21 +40,18 @@ public class StudentController {
 	}
 	
 	@GetMapping("/students/gender/{gender}")
-	public List<Student> searchByGender(@PathVariable Gender gender) {
-		return studentService.retrieveStudentsByGender(gender);
+	public List<Student> findStudentsByGender(@PathVariable Gender gender) {
+		return studentService.findStudentsByGender(gender);
 	}
 	
 	@GetMapping("/students/no-phone-number")
-	public List<Student> searchStudentsWithoutNumber() {
+	public List<Student> findStudentsWithoutNumber() {
 		return studentService.findStudentsWithoutPhoneNum();
 	}
 
 	@GetMapping("/student/{id}")
 	public Student findStudentById(@PathVariable int id) {
 		Student retrievedStudent =  studentService.findByID(id);
-		
-		if(retrievedStudent == null)
-			throw new RuntimeException("No student with ID #"+id+" was found at the database...");
 		
 		return retrievedStudent;
 	}
@@ -57,7 +60,7 @@ public class StudentController {
 	public List<Student> searchByFirstAndLastName(@PathVariable(name = "first_name") String firstName,
 										   @PathVariable(name = "last_name") String lastName) {
 		
-		List<Student> students =  studentService.retrieveStudentsByName(firstName, lastName);
+		List<Student> students =  studentService.findStudentsByName(firstName, lastName);
 		
 		if(students.isEmpty())
 			throw new IllegalStateException("No student with first name \""+firstName+"\" and last name \""+lastName+"\" exists in the database...");
@@ -65,6 +68,7 @@ public class StudentController {
 		return students;
 	}
 	
+	// POST Request to add a new student to the database:
 	@PostMapping("/student")
 	public Student addStudent(@RequestBody Student newStudent) {
 		
@@ -73,6 +77,7 @@ public class StudentController {
 		return studentService.saveStudent(newStudent);
 	}
 	
+	// PUT Request to update an existing student from the database:
 	@PutMapping("/student")
 	public Student updateStudent(@RequestBody Student student) {
 		
@@ -80,13 +85,9 @@ public class StudentController {
 	
 	}
 	
+	// DELETE Request to remove a student from the database given their ID:
 	@DeleteMapping("/student/{id}")
 	public String deleteStudent(@PathVariable int id) {
-		
-		Student studentToDelete = studentService.findByID(id);
-		
-		if(studentToDelete == null)
-			throw new RuntimeException("No student with ID #"+id+ " exists to delete....");
 		
 		studentService.deleteStudent(id);
 		

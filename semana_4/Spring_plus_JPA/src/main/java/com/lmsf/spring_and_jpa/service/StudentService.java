@@ -6,16 +6,18 @@ import com.lmsf.spring_and_jpa.entity.Student;
 import com.lmsf.spring_and_jpa.entity.Student.Gender;
 
 public interface StudentService {
-	//CREATE
+	
+		//CREATE & UPDATE
 		Student saveStudent(Student newStudent);
 		
 		//READ
 		Student findByID(int id);
 		long countNumberOfStudents();
+		
 		List<Student> findAll();
-		List<Student> retrieveStudentsByName(String firstName, String lastName);
+		List<Student> findStudentsByName(String firstName, String lastName);
 		List<Student> findStudentsWithoutPhoneNum();
-		List<Student> retrieveStudentsByGender(Gender gender);
+		List<Student> findStudentsByGender(Gender gender);
 		
 		
 		//DELETE

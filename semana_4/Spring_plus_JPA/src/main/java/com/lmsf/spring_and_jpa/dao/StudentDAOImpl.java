@@ -2,7 +2,6 @@ package com.lmsf.spring_and_jpa.dao;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.lmsf.spring_and_jpa.entity.Student;
@@ -13,57 +12,66 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
+// Repository Implementation
 @Repository
 public class StudentDAOImpl implements StudentDAO {
 
 	@PersistenceContext
-	@Autowired
 	private EntityManager entityManager;
 	
-	
-	
-	public StudentDAOImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
+	// Save a new student, or update an existing student's data:
 	@Override
 	public Student saveStudent(Student newStudent) {
 		return entityManager.merge(newStudent);
-		
-		
 	}
 	
-@Override
+	// Find a student by their ID:
+	@Override
+	public Student findByID(int id) {
+		return entityManager.find(Student.class, id);
+	}
+	
+	// Retrieve the number of students in the database:
+	@Override
 	public long countNumberOfStudents() {
 		Query query = entityManager.createQuery("SELECT COUNT(*) FROM Student");
 		
 		return (long) query.getSingleResult();
 	}
 
-	@Override
-	public Student findByID(int id) {
-		return entityManager.find(Student.class, id);
-	}
 	
+	
+	// Get all the students in the database:
 	@Override
 	public List<Student> findAll() {
+		
+		// JPQL Query:
 		TypedQuery<Student> searchQuery =
 				entityManager.createQuery("FROM Student", Student.class);
-				
+		
+		// Retrieve the list of results from the query:
 		return searchQuery.getResultList();
 	}
 
+	// Retrieve students based on their first and last name:
 	@Override
-	public List<Student> retrieveStudentsByName(String firstName, String lastName) {
+	public List<Student> findStudentsByName(String firstName, String lastName) {
+		
+		// JPQL Query
 		TypedQuery<Student> searchQuery =
 				entityManager.createQuery("FROM Student WHERE firstName LIKE :fname AND lastName LIKE :lname", Student.class);
 		
+		// Change placeholders with the provided arguments:
 		searchQuery.setParameter("fname", firstName+"%");
 		searchQuery.setParameter("lname", lastName+"%");
 		
+		// Return the list:
 		return searchQuery.getResultList();
 	}
 
+	
+	// Find the students that don't have a phone number:
 	@Override
 	public List<Student> findStudentsWithoutPhoneNum() {
 		TypedQuery<Student> searchQuery =
@@ -72,8 +80,9 @@ public class StudentDAOImpl implements StudentDAO {
 		return searchQuery.getResultList();
 	}
 
+	// Get the list of students of an specific gender:
 	@Override
-	public List<Student> retrieveStudentsByGender(Gender gender) {
+	public List<Student> findStudentsByGender(Gender gender) {
 		TypedQuery<Student> searchQuery =
 				entityManager.createQuery("FROM Student WHERE gender = :gender", Student.class);
 		
@@ -82,6 +91,7 @@ public class StudentDAOImpl implements StudentDAO {
 		return searchQuery.getResultList();
 	}
 
+	// Delete a student from the database given their ID:
 	@Override
 	public void deleteStudent(int id) {
 		Student studentToRemove = findByID(id);

@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lmsf.spring_data_jpa.entity.Student;
 import com.lmsf.spring_data_jpa.entity.Student.Gender;
 import com.lmsf.spring_data_jpa.service.StudentService;
 
+// REST CONTROLLER
 @RestController
-//@RequestMapping("/")
 public class StudentController {
 	
 	@Autowired
@@ -48,9 +47,6 @@ public class StudentController {
 	public Student findStudentById(@PathVariable int id) {
 		Optional<Student> retrievedStudent =  studentService.findByID(id);
 		
-		if(retrievedStudent.isEmpty())
-			throw new RuntimeException("No student with ID #"+id+" was found at the database...");
-		
 		return retrievedStudent.get();
 	}
 	
@@ -58,9 +54,6 @@ public class StudentController {
 	public List<Student> findStudentByFirstName(@PathVariable(name = "first_name") String firstName) {
 		
 		List<Student> students =  studentService.findByFirstName(firstName);
-		
-		if(students.isEmpty())
-			throw new IllegalStateException("No student with first name "+firstName+" exists in the database...");
 		
 		return students;
 	}
@@ -82,11 +75,6 @@ public class StudentController {
 	
 	@DeleteMapping("/student/{id}")
 	public String deleteStudent(@PathVariable int id) {
-		
-		Optional<Student> studentToDelete = studentService.findByID(id);
-		
-		if(studentToDelete.isEmpty())
-			throw new RuntimeException("No student with ID #"+id+ " exists to delete....");
 		
 		studentService.deleteStudent(id);
 		
