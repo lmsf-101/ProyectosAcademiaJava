@@ -1,0 +1,23 @@
+meta {
+  name: DeleteTask
+  type: http
+  seq: 8
+}
+
+delete {
+  url: http://localhost:8080/tasks/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+      "id": 2,
+      "title": "Change task 2",
+      "status": 0
+    }
+}

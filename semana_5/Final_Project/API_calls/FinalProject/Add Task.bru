@@ -1,0 +1,19 @@
+meta {
+  name: Add Task
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8080/tasks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "id": 4,
+      "title": "New task 4!",
+      "status": 0
+  }
+}

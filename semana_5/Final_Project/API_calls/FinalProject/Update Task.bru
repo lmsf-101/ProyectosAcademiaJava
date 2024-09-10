@@ -1,0 +1,19 @@
+meta {
+  name: Update Task
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:8080/tasks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "id": 2,
+      "title": "Change task 2",
+      "status": 1
+    }
+}
