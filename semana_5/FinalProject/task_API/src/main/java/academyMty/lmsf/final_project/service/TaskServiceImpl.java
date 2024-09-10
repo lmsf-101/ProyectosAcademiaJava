@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.repository.TaskRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class TaskServiceImpl implements TaskService{
@@ -17,22 +18,25 @@ public class TaskServiceImpl implements TaskService{
 	
 	@Override
 	public List<Task> findAllTasks() {
-		List<Task> allTasks = taskRepository.findAll();
+		List<Task> allTasks = taskRepository.findAllOrderByStatus();
 		return allTasks;
 	}
 	
 	@Override
+	@Transactional
 	public Task addTask(Task task) {
 		Task newTask = taskRepository.save(task);
 		return newTask;
 	}
 
 	@Override
+	@Transactional
 	public Task updateTask(Task task) {
-		return addTask(task);
+		return taskRepository.save(task);
 	}
 
 	@Override
+	@Transactional
 	public void removeTaskById(int id) {
 		taskRepository.deleteById(id);
 	}
@@ -46,7 +50,7 @@ public class TaskServiceImpl implements TaskService{
 
 	@Override
 	public List<Task> getTaskByTitle(String title) {
-		List<Task> matchTasks = taskRepository.getTaskByTitle(title);
+		List<Task> matchTasks = taskRepository.getTaskByTitleIgnoreCaseContaining(title);
 		
 		return matchTasks;
 	}

@@ -13,11 +13,13 @@ public class Task {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final Integer ID;
+	private int ID;
 	private String title;
+	
+	@Enumerated(EnumType.ORDINAL)
 	private Status status;
 	
 	public enum Status {
-		NONE, LOW, MEDIUM, HIGH
+		TODO, DONE
 	}
 }
