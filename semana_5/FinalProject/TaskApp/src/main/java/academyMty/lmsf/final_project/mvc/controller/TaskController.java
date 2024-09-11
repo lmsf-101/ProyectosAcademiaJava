@@ -65,14 +65,18 @@ public class TaskController {
 		return "edit-task";
 	}
 	
-//	@PostMapping("/task/{id}")
-//	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") TaskOffline newTask,
-//								@ModelAttribute("tasks") TaskList tasks, Model model) {
-//		
-//		tasks.changeTask(id, newTask);
-//		
-//		return "redirect:/list";
-//	}
+	@PostMapping("/task/{id}")
+	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") TaskOffline newTask,
+								@ModelAttribute("tasks") TaskList tasks, Model model) {
+		
+		log.info("Changing to new task : " + newTask);
+		
+		tasks.changeTask(id, newTask);
+		
+		log.info("\nNew TaskList : " + tasks.getTasks().toString() + "\n");
+		
+		return "redirect:/list";
+	}
 	
 	@PostMapping
 	public String addNewTask(@ModelAttribute TaskOffline task,
