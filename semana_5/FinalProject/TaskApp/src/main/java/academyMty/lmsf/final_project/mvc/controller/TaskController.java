@@ -2,6 +2,7 @@ package academyMty.lmsf.final_project.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,9 +66,10 @@ public class TaskController {
 		return "edit-task";
 	}
 	
+	
 	@PostMapping("/task/{id}")
 	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") TaskOffline newTask,
-								@ModelAttribute("tasks") TaskList tasks, Model model) {
+								@ModelAttribute("tasks") TaskList tasks) {
 		
 		log.info("Changing to new task : " + newTask);
 		
@@ -78,15 +80,41 @@ public class TaskController {
 		return "redirect:/list";
 	}
 	
+	
+	
+	@GetMapping("/task/delete/{id}")
+	public String deleteTask(@PathVariable("id") int id, @ModelAttribute("tasks") TaskList tasks, Model model) {
+		TaskOffline taskToDelete = tasks.getTaskById(id);
+		
+		model.addAttribute("delTask", taskToDelete);
+		
+		return "delete-task";
+	}
+	
+	@DeleteMapping("/task/delete/{id}")
+	public String confirmTaskDelete(@PathVariable("id") int id,
+			@ModelAttribute("tasks") TaskList tasks) {
+		
+		log.info("Deleting task with ID # " + id);
+		
+		tasks.deleteTask(id);
+		
+		log.info("\nNew TaskList : " + tasks.getTasks().toString() + "\n");
+		
+		return "redirect:/list";
+	}
+	
+	
 	@PostMapping
 	public String addNewTask(@ModelAttribute TaskOffline task,
 			 @ModelAttribute("tasks") TaskList tasks, Model model) {
 		
+		log.info("Adding the new task : " + task);
 		task.setID(tasks.getTasks().size()+1);
 		task.setStatus(TaskOffline.Status.TODO);
 		tasks.addTask(task);
 		
-		log.info("Adding the new task : " + task);
+		log.info("\nNew TaskList : " + tasks.getTasks().toString() + "\n");
 		
 
 		

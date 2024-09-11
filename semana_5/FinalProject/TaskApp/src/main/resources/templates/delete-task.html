@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http:/ /www.w3.org/1999/xhtml" xmlns:th="http:/ /www.thymeleaf.org">  
+	<head>    
+		<title>Delete Task</title>  
+	</head>  
+	<body>
+		<h2>Delete Task ?!?!</h2>
+		<form role="form" th:method="delete" th:action="@{/list/task/delete/{id}(id=${delTask.ID})}" th:object="${delTask}">
+			<input type="hidden" name="_method" value="delete">
+			<h3 th:text="'Are you sure you want to delete the task with ID # ' + ${delTask.ID}">Delete task</h3><br>
+			<b>Title: </b><br>
+			<p th:text="${delTask.title}"></p><br>
+			<b>Status: </b><br>
+			<p th:text="${#strings.toUpperCase(delTask.status)}"></p><br>
+			
+			<button type=submit>Delete Task</button>
+		</form>    
+		
+		
+
+	</body>
+</html>

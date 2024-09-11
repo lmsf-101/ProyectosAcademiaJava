@@ -10,6 +10,7 @@
 			<b th:text="${curTask.title}">Title</b>
 			<p th:text="${curTask.status}">Status:</p>
 			<a th:href="@{/list/task/{id}(id=${curTask.ID})}">Edit Task</a>
+			<a th:href="@{/list/task/delete/{id}(id=${curTask.ID})}">Delete Task</a>
 		</div>
 		
 		<p>Hello World!</p>

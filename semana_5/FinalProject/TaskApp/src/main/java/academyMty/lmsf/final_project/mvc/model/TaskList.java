@@ -1,6 +1,7 @@
 package academyMty.lmsf.final_project.mvc.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TaskList {
@@ -9,9 +10,11 @@ public class TaskList {
 	
 	public void addTask(TaskOffline task) {
 		list.add(task);
+		orderList();
 	}
 	
 	public List<TaskOffline> getTasks() {
+		orderList();
 		return list;
 	}
 	
@@ -28,6 +31,20 @@ public class TaskList {
 		int index = list.indexOf(getTaskById(id));
 		
 		list.set(index, newTask);
+		
+		orderList();
+	}
+	
+	public void deleteTask(int id) {
+		int index = list.indexOf(getTaskById(id));
+		
+		list.remove(index);
+		
+		orderList();
+	}
+	
+	private void orderList() {
+		Collections.sort(list, (t1, t2) -> t1.getStatus().compareTo(t2.getStatus()));
 	}
 	
 }
