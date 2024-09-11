@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import academyMty.lmsf.final_project.controller.TaskController;
+import academyMty.lmsf.final_project.mvc.controller.TaskController;
 
 @WebMvcTest(TaskController.class)
 public class ControllerTest {

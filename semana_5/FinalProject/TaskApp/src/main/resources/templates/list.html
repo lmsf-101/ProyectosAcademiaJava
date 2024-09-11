@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http:/ /www.w3.org/1999/xhtml" xmlns:th="http:/ /www.thymeleaf.org">  
+	<head>    
+		<title>Task List</title>  
+	</head>  
+	<body>    
+		<h2>List of Tasks :</h2>
+		
+		<div th:each="curTask : ${curList}">
+			<b th:text="${curTask.title}">Title</b>
+			<p th:text="${curTask.status}">Status:</p>
+		</div>
+		
+		<p>Hello World!</p>
+		
+		<h4> Add a new Task : </h4>
+		<form method="POST" th:object="${task}">
+			<input th:field="*{title}" type="text" placeholder="Enter task title"/>
+			
+			<input type="submit" value="Add Task">
+		</form>
+	
+		
+	</body>
+</html>

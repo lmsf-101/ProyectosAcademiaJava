@@ -1,4 +1,4 @@
-package academyMty.lmsf.final_project.model;
+package academyMty.lmsf.final_project.rest.model;
 
 
 import jakarta.persistence.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @Table(name = "task")
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
+@NoArgsConstructor
 public class Task {
 	
 	@Id
