@@ -1,4 +1,4 @@
-package academyMty.lmsf.final_project.rest.model;
+package academyMty.lmsf.final_project.model;
 
 
 import jakarta.persistence.*;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import academyMty.lmsf.final_project.rest.model.Task;
+import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.service.TaskService;
 
 @RestController

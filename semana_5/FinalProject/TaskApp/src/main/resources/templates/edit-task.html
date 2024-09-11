@@ -11,7 +11,7 @@
 			<input id="title" type="text" th:field="*{title}" th:value="${editTask.title}" placeholder="Enter new title: "><br><br>
 			<label for="stat">Task Status:</label><br>
 			<select id="stat" type="checkbox" th:field="*{status}">
-				<option th:each="state : ${T(academyMty.lmsf.final_project.mvc.model.TaskOffline.Status).values()}"
+				<option th:each="state : ${T(academyMty.lmsf.final_project.model.Task.Status).values()}"
 						th:value="${state}"
 						th:text="${#strings.toUpperCase(state)}"></option>
 				

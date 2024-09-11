@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academyMty.lmsf.final_project.repository.TaskRepository;
-import academyMty.lmsf.final_project.rest.model.Task;
+import academyMty.lmsf.final_project.model.Task;
 import jakarta.transaction.Transactional;
 
 @Service
