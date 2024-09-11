@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http:/ /www.w3.org/1999/xhtml" xmlns:th="http:/ /www.thymeleaf.org">  
+	<head>    
+		<title>Edit Task</title>  
+	</head>  
+	<body>
+		<h2>Edit Task</h2>
+		<form role="form" method="POST" th:action="@{/list/task/{id}(id=${editTask.ID})}" th:object="${editTask}">
+			<input type="hidden" th:field="*{ID}">
+			<label for="title">Title:</label><br>
+			<input id="title" type="text" th:field="*{title}" th:value="${editTask.title}" placeholder="Enter new title: "><br><br>
+			<label for="stat">Task Status:</label><br>
+			<select id="stat" type="checkbox" th:field="*{status}">
+				<option th:each="state : ${T(academyMty.lmsf.final_project.mvc.model.TaskOffline.Status).values()}"
+						th:value="${state}"
+						th:text="${#strings.toUpperCase(state)}"></option>
+				
+			</select><br><br>
+			<input type="submit" value="Save Changes">
+		</form>    
+		
+		
+
+	</body>
+</html>

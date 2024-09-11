@@ -16,6 +16,18 @@ public class TaskList {
 	}
 	
 	public TaskOffline getTaskById(int id) {
-		return list.get(id);
+		for (TaskOffline taskOffline : list) {
+			if (taskOffline.getID() == id)
+					return taskOffline;
+		}
+		
+		return null;
 	}
+	
+	public void changeTask(int id, TaskOffline newTask) {
+		int index = list.indexOf(getTaskById(id));
+		
+		list.set(index, newTask);
+	}
+	
 }

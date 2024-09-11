@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -54,6 +55,24 @@ public class TaskController {
 	public String getList() {
 		return "list";
 	}
+	
+	@GetMapping("/task/{id}")
+	public String editTask(@PathVariable("id") int id, @ModelAttribute("tasks") TaskList tasks, Model model) {
+		TaskOffline taskToEdit = tasks.getTaskById(id);
+		
+		model.addAttribute("editTask", taskToEdit);
+		
+		return "edit-task";
+	}
+	
+//	@PostMapping("/task/{id}")
+//	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") TaskOffline newTask,
+//								@ModelAttribute("tasks") TaskList tasks, Model model) {
+//		
+//		tasks.changeTask(id, newTask);
+//		
+//		return "redirect:/list";
+//	}
 	
 	@PostMapping
 	public String addNewTask(@ModelAttribute TaskOffline task,

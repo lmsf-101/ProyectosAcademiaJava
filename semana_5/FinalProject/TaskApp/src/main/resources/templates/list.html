@@ -9,6 +9,7 @@
 		<div th:each="curTask : ${curList}">
 			<b th:text="${curTask.title}">Title</b>
 			<p th:text="${curTask.status}">Status:</p>
+			<a th:href="@{/list/task/{id}(id=${curTask.ID})}">Edit Task</a>
 		</div>
 		
 		<p>Hello World!</p>
