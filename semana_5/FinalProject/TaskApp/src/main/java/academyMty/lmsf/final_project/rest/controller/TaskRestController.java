@@ -1,4 +1,4 @@
-package academyMty.lmsf.final_project.controller;
+package academyMty.lmsf.final_project.rest.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +18,8 @@ import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.service.TaskService;
 
 @RestController
-@RequestMapping("/tasks")
-public class TaskController {
+@RequestMapping("/api/tasks")
+public class TaskRestController {
 	
 	@Autowired
 	private TaskService taskService;
