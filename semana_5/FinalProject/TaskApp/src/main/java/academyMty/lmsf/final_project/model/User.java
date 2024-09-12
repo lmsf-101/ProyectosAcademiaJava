@@ -2,6 +2,7 @@ package academyMty.lmsf.final_project.model;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,5 +31,6 @@ public class User {
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name="user_id")
-	private List<Task> tasks;
+	@MapKey
+	private Map<Integer, Task> tasks;
 }

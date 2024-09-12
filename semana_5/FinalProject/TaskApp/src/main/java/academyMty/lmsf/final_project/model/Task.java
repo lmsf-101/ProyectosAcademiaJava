@@ -14,7 +14,6 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
 public class Task implements Comparable<Task> {
 	
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;

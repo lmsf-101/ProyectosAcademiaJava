@@ -16,7 +16,6 @@ import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.model.User;
 import academyMty.lmsf.final_project.service.TaskService;
 import academyMty.lmsf.final_project.service.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -68,23 +67,39 @@ public class UserRestController {
 		return taskService.addTask(task);
 		
 	}
-//	
-//	@PutMapping("/task")
-//	public String updateTask(@PathVariable("user_id") long userId, @RequestBody Task task) {
+	
+	@PutMapping("/task")
+	public String updateTask(@PathVariable("user_id") long userId, @RequestBody Task newTask) {
+		
+		//User user = userService.getUserById(userId);
+//		Map<Integer,Task> tasks = user.getTasks();
 //		
-//		userService.changeTask(userId, task);
+//		Task task = tasks.get(newTask.getID());
 //		
-//		return "Changed task of ID #"+task.getID()+ " for User #"+userId;
-//	}
-//	
-//	
-//	@DeleteMapping("/task/{task_id}")
-//	public String deleteTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-//		
-//		userService.deleteTask(userId, taskId);
-//		
-//		return "Deleted task of ID #"+taskId+ " for User #"+userId;
-//		
-//	}
+//		newTask.setID(task.getID());
+		
+		taskService.updateTask(newTask);
+		
+		
+		//userService.changeTask(userId, task);
+		
+		return "Changed task for User #"+userId;
+	}
+	
+	
+	@DeleteMapping("/task/{task_id}")
+	public String deleteTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+		
+		User user = userService.getUserById(userId);
+		
+		Task task = user.getTasks().get(taskId);
+		
+		if(task != null) {
+			taskService.removeTaskById(task.getID());
+			return "Deleted task of ID #"+taskId+ " for User #"+userId;
+		}
+		
+		return "";
+	}
 	
 }
