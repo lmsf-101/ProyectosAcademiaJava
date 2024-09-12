@@ -20,10 +20,10 @@ public interface UserService {
 	
 	void deleteUser(long id);
 	
-	Optional<Task> getTask(long userId, int taskId);
-	void addTask(long userId, Task task);
-	void changeTask(long userId, Task newTask);
-	void deleteTask(long userId, int taskId);
-	List<Task> getAllTasks(long id);
-	
+//	Task getTask(long userId, int taskId);
+//	void addTask(long userId, Task task);
+//	void changeTask(long userId, Task newTask);
+//	void deleteTask(long userId, int taskId);
+//	List<Task> getAllTasks(long id);
+//	
 }

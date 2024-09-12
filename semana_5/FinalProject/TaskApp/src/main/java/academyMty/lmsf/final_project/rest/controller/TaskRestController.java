@@ -71,12 +71,10 @@ public class TaskRestController {
 	
 	@GetMapping("/{id}")
 	public Task getTaskById(@PathVariable int id) {
-		Optional<Task> retrievedTask = taskService.getTaskById(id);
+		Task retrievedTask = taskService.getTaskById(id);
 		
-		if (retrievedTask.isEmpty())
-			throw new RuntimeException("Task with ID #"+id+" does not exist...");
 		
-		return retrievedTask.get();
+		return retrievedTask;
 	}
 	
 	@GetMapping("/title/{title}")

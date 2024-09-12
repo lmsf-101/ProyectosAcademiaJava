@@ -14,12 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.model.User;
+import academyMty.lmsf.final_project.service.TaskService;
 import academyMty.lmsf.final_project.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/user/{user_id}")
 public class UserRestController {
+	
+	@Autowired
+	private TaskService taskService;
 	
 	@Autowired
 	private UserService userService;
@@ -30,33 +36,38 @@ public class UserRestController {
 		return user;
 	}
 	
-//	@GetMapping("/task")
-//	public List<Task> getUsersTasks(@PathVariable("user_id") long userId) {
-//		
-//		List<Task> tasks = userService.getAllTasks(userId);
-//		
-//		return tasks;
-//	}
-//	
-//	@GetMapping("/task/{task_id}")
-//	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-//		
-//		//User user = getUser(userId);
-//		
-//		Task task = userService.getTask(userId, taskId).orElseThrow(() -> new EntityNotFoundException("No task with ID #"+taskId+" was found....."));
-//		
-//		return task;
-//		
-//	}
-//	
-//	@PostMapping("/task")
-//	public String saveTask(@PathVariable("user_id") long userId, @RequestBody Task task) {
-//		
-//		userService.addTask(userId, task);
-//		
-//		return "Added new task to user #"+userId+" : "+task;
-//		
-//	}
+	@GetMapping("/task")
+	public List<Task> getUsersTasks(@PathVariable("user_id") long userId) {
+		
+		User user = userService.getUserById(userId);
+		
+		List<Task> tasks = taskService.findByUser(user);
+
+		return tasks;
+	}
+	
+	@GetMapping("/task/{task_id}")
+	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+		
+		User user = userService.getUserById(userId);
+		
+		Task task = user.getTasks().get(taskId);
+		
+		return taskService.getTaskById(task.getID());
+		
+	}
+	
+	@PostMapping("/task")
+	public Task saveTask(@PathVariable("user_id") long userId, @RequestBody Task task) {
+		
+		User user = userService.getUserById(userId);
+		
+		task.setID(0);
+		task.setUser(user);
+		
+		return taskService.addTask(task);
+		
+	}
 //	
 //	@PutMapping("/task")
 //	public String updateTask(@PathVariable("user_id") long userId, @RequestBody Task task) {

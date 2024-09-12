@@ -3,6 +3,7 @@ package academyMty.lmsf.final_project.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -25,6 +26,7 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 	
+	@JsonIgnore
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name="user_id")

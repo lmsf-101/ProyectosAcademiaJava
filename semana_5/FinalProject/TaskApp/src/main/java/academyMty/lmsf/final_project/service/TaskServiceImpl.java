@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academyMty.lmsf.final_project.model.Task;
+import academyMty.lmsf.final_project.model.User;
 import academyMty.lmsf.final_project.repository.TaskRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class TaskServiceImpl implements TaskService{
 
@@ -26,6 +30,7 @@ public class TaskServiceImpl implements TaskService{
 	@Transactional
 	public Task addTask(Task task) {
 		Task newTask = taskRepository.save(task);
+		
 		return newTask;
 	}
 
@@ -42,8 +47,9 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Override
-	public Optional<Task> getTaskById(int id) {
-		Optional<Task> retrieveTask = taskRepository.findById(id);
+	public Task getTaskById(int id) {
+		Task retrieveTask = taskRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Task with ID #"+id+" does not exists..."));
 		
 		return retrieveTask;
 	}
@@ -58,6 +64,11 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public long countTasks() {
 		return taskRepository.count();
+	}
+	
+	@Override
+	public List<Task> findByUser(User user) {
+		return taskRepository.findByUser(user);
 	}
 
 }
