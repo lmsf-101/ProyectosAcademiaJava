@@ -20,6 +20,7 @@ public class Task implements Comparable<Task> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tId;
 	
+	@JsonIgnore
 	@Id
 	private long uId;
 	

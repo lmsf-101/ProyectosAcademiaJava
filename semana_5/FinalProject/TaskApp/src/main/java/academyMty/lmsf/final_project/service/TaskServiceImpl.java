@@ -17,58 +17,45 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class TaskServiceImpl implements TaskService{
+	
+	//TODO Define CRUD operations for Composite Key
 
 	@Autowired
 	private TaskRepository taskRepository;
-	
-//	@Override
-//	public List<Task> getTasksByUserId(long userId) {
-//		
-//		return taskRepository.findByUserId(userId);
-//	}
-	
-	@Override
-	public Task findTask(TaskId taskId) {
-		
-		return taskRepository.findById(taskId).orElseThrow(
-				() -> new EntityNotFoundException("Task with ID #" + taskId.getUId() + " does not exist..."));
-	}
-	
-	
-//	public Task addTask(Task task) {
-//		Task newTask = taskRepository.save(task);
-//		
-//		return newTask;
-//	}
-	
-//	@Override
-//	@Transactional
-//	public Task updateTask(Task task) {
-//		
-//		Task oldTask = getTaskById(task.getID());
-//		
-//		oldTask.setTitle(task.getTitle());
-//		oldTask.setStatus(task.getStatus());
-//		
-//		return taskRepository.save(oldTask);
-//	}
 
-	@Override
 	@Transactional
-	public void deleteTask(int taskId, long userId) {
-		TaskId taskID = new TaskId(taskId, userId);
-		
-		taskRepository.deleteById(taskID);
+	@Override
+	public Task addTaskToUser(Task task) {
+		return taskRepository.save(task);
 	}
 
 	@Override
-	public Task addTask(Task task) {
-		// TODO Auto-generated method stub
-		return null;
+	public Task getTaskByUser(long userId, int taskId) {
+		return taskRepository.findTaskByUser(taskId, userId).orElseThrow(
+				
+				() -> new EntityNotFoundException("Task of ID #" + taskId + " for User #" + userId + " does not exist...")
+				
+				);
+	}
+
+	@Override
+	public List<Task> getTasksOfUser(long userId) {
+		return taskRepository.findByUser(userId);
 	}
 	
-//	@Override
-//	public long countTasks(long id) {
-//		return taskRepository.countTasksByUserId(id);
-//	}
+	@Transactional
+	
+	public Task updateTask(Task task) {
+		return null;
+	
+	}
+
+	@Transactional
+	@Override
+	public void deleteTask(TaskId id) {
+		taskRepository.deleteById(id);
+		
+	}
+	
+	
 }

@@ -19,12 +19,6 @@ public interface UserService {
 	long countUser();
 	
 	void deleteUser(long id);
-	
-	Task addTaskToUser(long userId, Task task);
-	
-	Task getTaskByUser(long userId, int taskId);
-	
-	List<Task> getTasksOfUser(long userId);
 	 
 //	Task getTask(long userId, int taskId);
 //	void addTask(long userId, Task task);

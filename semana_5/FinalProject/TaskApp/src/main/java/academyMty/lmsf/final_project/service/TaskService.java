@@ -10,7 +10,18 @@ import academyMty.lmsf.final_project.model.User;
 
 public interface TaskService {
 	
-	Task addTask(Task task);
+	//TODO Define CRUD operations for Composite Key
+	
+	Task addTaskToUser(Task task);
+	
+	Task getTaskByUser(long userId, int taskId);
+	
+	List<Task> getTasksOfUser(long userId);
+	
+	
+	//Task updateTask(Task task);
+	
+//	Task addTask(Task task);
 //	void removeTaskById(int id);
 //	Task getTaskById(int id);
 //	List<Task> getTasksByUserId(long userId);
@@ -19,6 +30,6 @@ public interface TaskService {
 	
 	//List<Task> findByUser(User user);
 	//Task updateTask(Task task);
-	void deleteTask(int taskId, long userId);
-	Task findTask(TaskId taskId);
+	void deleteTask(TaskId id);
+//	Task findTask(TaskId taskId);
 } 

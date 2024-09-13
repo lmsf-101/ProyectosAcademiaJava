@@ -21,9 +21,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private TaskRepository taskRepository;
-	
 	@Override
 	public User createUser(User user) {
 		User newUser = userRepository.save(user);
@@ -31,6 +28,7 @@ public class UserServiceImpl implements UserService {
 		return newUser;
 	}
 
+	@Transactional
 	@Override
 	public User changePassword(long id, String password) {
 		
@@ -48,6 +46,7 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public User updateUser(User user) {
 		return userRepository.save(user);
@@ -69,31 +68,32 @@ public class UserServiceImpl implements UserService {
 		return userRepository.count();
 	}
 
+	@Transactional
 	@Override
 	public void deleteUser(long id) {
 		userRepository.deleteById(id);
 	}
 	
-	
-	@Override
-	public List<Task> getTasksOfUser(long userId) {
-		return taskRepository.findByuId(userId);
-	}
-	
-	@Override
-	public Task getTaskByUser(long userId, int taskId) {
-		return null;		//return taskRepository.findByTaskIdTAndTaskIdU(taskId, userId);
-	}
-	
-	
-	@Override
-	public Task addTaskToUser(long userId, Task task) {
-		User user = getUserById(userId);
-		
-		task.setUser(user);
-		
-		return taskRepository.save(task);
-	}
+//	
+//	@Override
+//	public List<Task> getTasksOfUser(long userId) {
+//		return taskRepository.findByuId(userId);
+//	}
+//	
+//	@Override
+//	public Task getTaskByUser(long userId, int taskId) {
+//		return null;		//return taskRepository.findByTaskIdTAndTaskIdU(taskId, userId);
+//	}
+//	
+//	
+//	@Override
+//	public Task addTaskToUser(long userId, Task task) {
+//		User user = getUserById(userId);
+//		
+//		task.setUser(user);
+//		
+//		return taskRepository.save(task);
+//	}
 //	
 //	@Override
 //	public List<Task> getAllTasks(long id) {

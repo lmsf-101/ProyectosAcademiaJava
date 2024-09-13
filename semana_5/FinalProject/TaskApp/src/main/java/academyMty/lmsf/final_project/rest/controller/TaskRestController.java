@@ -18,9 +18,25 @@ import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.service.TaskService;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/user/{user_id}")
 public class TaskRestController {
-//	
+	
+	//TODO Define CRUD operations for Composite Key
+	
+	
+	@Autowired
+	private TaskService taskService;
+	
+	@GetMapping("/tasks")
+	public List<Task> getAllTasks(@PathVariable("user_id") long userId) {
+		return taskService.getTasksOfUser(userId);
+	}
+	
+	@GetMapping("/task/{task_id}")
+	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+		return taskService.getTaskByUser(userId, taskId);
+	}
+	
 //	@Autowired
 //	private TaskService taskService;
 //	

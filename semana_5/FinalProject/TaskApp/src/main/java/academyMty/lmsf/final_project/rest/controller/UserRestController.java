@@ -23,18 +23,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/user/{user_id}")
 public class UserRestController {
 	
-	@Autowired
-	private UserService userService;
-	
-	@GetMapping("/tasks")
-	public List<Task> getAllTasks(@PathVariable long userId) {
-		return userService.getTasksOfUser(userId);
-	}
-	
-	@GetMapping("/task/{task_id}")
-	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-		return userService.getTaskByUser(userId, taskId);
-	}
+//	@Autowired
+//	private UserService userService;
+//	
+//	@GetMapping("/tasks")
+//	public List<Task> getAllTasks(@PathVariable long userId) {
+//		return userService.getTasksOfUser(userId);
+//	}
+//	
+//	@GetMapping("/task/{task_id}")
+//	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+//		return userService.getTaskByUser(userId, taskId);
+//	}
 	
 //	
 //	@Autowired
