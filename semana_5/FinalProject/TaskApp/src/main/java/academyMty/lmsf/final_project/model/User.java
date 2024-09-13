@@ -19,7 +19,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long ID;
+	private long userID;
 	
 	@Column(nullable = false, unique = true)
 	private String name;
@@ -29,8 +29,8 @@ public class User {
 	
 	@JsonIgnore
 	@JsonManagedReference
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-	@JoinColumn(name="user_id")
-	@MapKey
-	private Map<Integer, Task> tasks;
+	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	//@JoinColumn(name="user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Task> tasks;
 }

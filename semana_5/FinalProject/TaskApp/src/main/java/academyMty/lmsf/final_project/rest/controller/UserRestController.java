@@ -24,82 +24,96 @@ import lombok.extern.slf4j.Slf4j;
 public class UserRestController {
 	
 	@Autowired
-	private TaskService taskService;
-	
-	@Autowired
 	private UserService userService;
-
-	@GetMapping
-	public User getUserById(@PathVariable("user_id") long id) {
-		User user = userService.getUserById(id);
-		return user;
-	}
 	
-	@GetMapping("/task")
-	public List<Task> getUsersTasks(@PathVariable("user_id") long userId) {
-		
-		User user = userService.getUserById(userId);
-		
-		List<Task> tasks = taskService.findByUser(user);
-
-		return tasks;
+	@GetMapping("/tasks")
+	public List<Task> getAllTasks(@PathVariable long userId) {
+		return userService.getTasksOfUser(userId);
 	}
 	
 	@GetMapping("/task/{task_id}")
 	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-		
-		User user = userService.getUserById(userId);
-		
-		Task task = user.getTasks().get(taskId);
-		
-		return taskService.getTaskById(task.getID());
-		
+		return userService.getTaskByUser(userId, taskId);
 	}
 	
-	@PostMapping("/task")
-	public Task saveTask(@PathVariable("user_id") long userId, @RequestBody Task task) {
-		
-		User user = userService.getUserById(userId);
-		
-		task.setID(0);
-		task.setUser(user);
-		
-		return taskService.addTask(task);
-		
-	}
-	
-	@PutMapping("/task")
-	public String updateTask(@PathVariable("user_id") long userId, @RequestBody Task newTask) {
-		
-		//User user = userService.getUserById(userId);
-//		Map<Integer,Task> tasks = user.getTasks();
+//	
+//	@Autowired
+//	private TaskService taskService;
+//	
+//	@Autowired
+//	private UserService userService;
+//
+//	@GetMapping
+//	public User getUserById(@PathVariable("user_id") long id) {
+//		User user = userService.getUserById(id);
+//		return user;
+//	}
+//	
+//	@GetMapping("/task")
+//	public List<Task> getUsersTasks(@PathVariable("user_id") long userId) {
 //		
-//		Task task = tasks.get(newTask.getID());
+//		User user = userService.getUserById(userId);
 //		
-//		newTask.setID(task.getID());
-		
-		taskService.updateTask(newTask);
-		
-		
-		//userService.changeTask(userId, task);
-		
-		return "Changed task for User #"+userId;
-	}
-	
-	
-	@DeleteMapping("/task/{task_id}")
-	public String deleteTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-		
-		User user = userService.getUserById(userId);
-		
-		Task task = user.getTasks().get(taskId);
-		
-		if(task != null) {
-			taskService.removeTaskById(task.getID());
-			return "Deleted task of ID #"+taskId+ " for User #"+userId;
-		}
-		
-		return "";
-	}
-	
+//		List<Task> tasks = taskService.findByUser(user);
+//
+//		return tasks;
+//	}
+//	
+//	@GetMapping("/task/{task_id}")
+//	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+//		
+//		User user = userService.getUserById(userId);
+//		
+//		Task task = user.getTasks().get(taskId);
+//		
+//		return taskService.getTaskById(task.getID());
+//		
+//	}
+//	
+//	@PostMapping("/task")
+//	public Task saveTask(@PathVariable("user_id") long userId, @RequestBody Task task) {
+//		
+//		User user = userService.getUserById(userId);
+//		
+//		task.setID(0);
+//		task.setUser(user);
+//		
+//		return taskService.addTask(task);
+//		
+//	}
+//	
+//	@PutMapping("/task")
+//	public String updateTask(@PathVariable("user_id") long userId, @RequestBody Task newTask) {
+//		
+//		//User user = userService.getUserById(userId);
+////		Map<Integer,Task> tasks = user.getTasks();
+////		
+////		Task task = tasks.get(newTask.getID());
+////		
+////		newTask.setID(task.getID());
+//		
+//		taskService.updateTask(newTask);
+//		
+//		
+//		//userService.changeTask(userId, task);
+//		
+//		return "Changed task for User #"+userId;
+//	}
+//	
+//	
+//	@DeleteMapping("/task/{task_id}")
+//	public String deleteTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+//		
+//		User user = userService.getUserById(userId);
+//		
+//		Task task = user.getTasks().get(taskId);
+//		
+//		if(task != null) {
+//			taskService.removeTaskById(task.getID());
+//			return "Deleted task of ID #"+taskId+ " for User #"+userId;
+//		}
+//		
+//		return "";
+//	}
+//	
 }

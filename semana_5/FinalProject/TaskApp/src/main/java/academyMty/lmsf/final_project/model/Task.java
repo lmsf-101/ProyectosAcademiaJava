@@ -7,17 +7,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
 @Entity
 @Table(name = "tasks")
+@Data
+@IdClass(TaskId.class)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
 public class Task implements Comparable<Task> {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
+	private int tId;
 	
+	@Id
+	private long uId;
 	
 	private String title;
 	
@@ -26,8 +30,8 @@ public class Task implements Comparable<Task> {
 	
 	@JsonBackReference
 	@ManyToOne
+	@JoinColumn(name = "uId", referencedColumnName = "userID", insertable = false, updatable = false)
 	private User user;
-	
 	
 	public enum Status {
 		TODO, DONE
