@@ -49,6 +49,11 @@ public class SecurityConfig {
 							config.frameOptions(fo ->
 									fo.sameOrigin()
 									)
+				).
+				logout(logout ->
+					
+						logout
+						.permitAll()
 				)
 
 				.build();
