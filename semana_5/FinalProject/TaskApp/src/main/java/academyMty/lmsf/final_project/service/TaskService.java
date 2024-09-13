@@ -22,6 +22,7 @@ public interface TaskService {
 	
 	Task updateTaskOfUser(Task task);
 	
+	void deleteTask(TaskId id);
 	
 	//Task updateTask(Task task);
 	
@@ -34,6 +35,5 @@ public interface TaskService {
 	
 	//List<Task> findByUser(User user);
 	//Task updateTask(Task task);
-	void deleteTask(TaskId id);
 //	Task findTask(TaskId taskId);
 } 

@@ -58,8 +58,6 @@ public class TaskRestController {
 		User user = userService.getUserById(userId);
 		List<Task> tasks = user.getTasks();
 		
-		
-		
 		int taskId = tasks.isEmpty() ? 1 : tasks.get(tasks.size()-1).getTId() + 1;
 		
 		task.setTId(taskId);
