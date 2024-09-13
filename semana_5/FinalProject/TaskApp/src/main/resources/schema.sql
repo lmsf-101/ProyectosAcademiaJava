@@ -1,4 +1,4 @@
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
 	`username` varchar(50) NOT NULL,
 	`password` varchar(50) NOT NULL,
 	`enabled` tinyint NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE `users` (
 	PRIMARY KEY (`username`)
 );
 
-CREATE TABLE `authorities` (
+CREATE TABLE IF NOT EXISTS `authorities` (
 	`username` varchar(50) NOT NULL,
 	`authority` varchar(50) NOT NULL,
 	
