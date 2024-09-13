@@ -18,6 +18,10 @@ public interface TaskService {
 	
 	List<Task> getTasksOfUser(long userId);
 	
+	long countTasks(long userId);
+	
+	Task updateTaskOfUser(Task task);
+	
 	
 	//Task updateTask(Task task);
 	

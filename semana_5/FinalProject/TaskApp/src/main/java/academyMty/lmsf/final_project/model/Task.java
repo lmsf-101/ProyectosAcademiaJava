@@ -17,11 +17,12 @@ public class Task implements Comparable<Task> {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "task_id")
 	private int tId;
 	
 	@JsonIgnore
 	@Id
+	@Column(name = "user_id")
 	private long uId;
 	
 	private String title;
@@ -31,7 +32,7 @@ public class Task implements Comparable<Task> {
 	
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "uId", referencedColumnName = "userID", insertable = false, updatable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "userID", insertable = false, updatable = false)
 	private User user;
 	
 	public enum Status {

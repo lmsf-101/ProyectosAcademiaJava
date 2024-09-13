@@ -1,8 +1,10 @@
 package academyMty.lmsf.final_project.model;
 
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -32,5 +34,6 @@ public class User {
 	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	//@JoinColumn(name="user")
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OrderBy("task_id ASC")
 	private List<Task> tasks;
 }

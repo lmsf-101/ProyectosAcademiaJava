@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import academyMty.lmsf.final_project.model.Task;
+import academyMty.lmsf.final_project.model.TaskId;
+import academyMty.lmsf.final_project.model.User;
 import academyMty.lmsf.final_project.service.TaskService;
+import academyMty.lmsf.final_project.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/user/{user_id}")
 public class TaskRestController {
@@ -27,9 +32,20 @@ public class TaskRestController {
 	@Autowired
 	private TaskService taskService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping("/tasks")
 	public List<Task> getAllTasks(@PathVariable("user_id") long userId) {
+		
 		return taskService.getTasksOfUser(userId);
+	}
+	
+	@GetMapping("/tasks/size")
+	public String getNumTasks(@PathVariable("user_id") long userId) {
+		long size = taskService.countTasks(userId);
+				
+		return "Number of tasks for User #"+userId + " : " + size;
 	}
 	
 	@GetMapping("/task/{task_id}")
@@ -37,78 +53,38 @@ public class TaskRestController {
 		return taskService.getTaskByUser(userId, taskId);
 	}
 	
-//	@Autowired
-//	private TaskService taskService;
-//	
-//	
-//	@GetMapping("/tasks")
-//	public List<Task> getAllTasks(@PathVariable long userId) {
-//		return taskService.getTasksByUserId(userId);
-//	}
-////	
-////	@GetMapping("/task/{task_id}")
-////	public Task getTask(@PathVariable("user_id") long userId,  @PathVariable("task_id") int taskId) {
-////		return taskService.findTask(taskId, userId);
-////		
-////		
-////	}
-//	
-//	@GetMapping("/task/size")
-//	public long getNumTasks(@PathVariable long userId) {
-//		return taskService.countTasks(userId);
-//	}
-//	
-//	
-//	@PostMapping("/task")
-//	public Task createTask(@RequestBody Task task) {
-//		return taskService.addTask(task);
-//		
-//		
-//	}
-//	
-//	
-//	
-////	@PutMapping
-////	public String updateTask(@RequestBody Task task) {
-////		
-////		Task updatedTask = taskService.updateTask(task);
-////		
-////		return "Updated task of ID #" + updatedTask.getID() + " : \n" + updatedTask;
-////		
-////	}
-////	
-////	@DeleteMapping("/{id}")
-////	public String deleteTask(@PathVariable int id) {
-////		
-////		Task taskToDel = getTaskById(id);
-////		
-////		taskService.removeTaskById(id);
-////		
-////		return "Deleted task with ID #"+id+" : \n" + taskToDel;
-////	}
-////	
-////	@GetMapping(params = "size")
-////	public String getNumTasks() {
-////		long numTasks = taskService.countTasks();
-////		
-////		return "The number of tasks available is : " + numTasks;
-////	}
-////	
-////	@GetMapping("/{id}")
-////	public Task getTaskById(@PathVariable int id) {
-////		Task retrievedTask = taskService.getTaskById(id);
-////		
-////		
-////		return retrievedTask;
-////	}
-////	
-////	@GetMapping("/title/{title}")
-////	public List<Task> getTaskByTitle(@PathVariable String title) {
-////		List<Task> tasksByTitle = taskService.getTaskByTitle(title);
-////		
-////		return tasksByTitle;
-////	}
-//	
-//	
+	@PostMapping("/task")
+	public Task createTask(@PathVariable("user_id") long userId, @RequestBody Task task ) {
+		User user = userService.getUserById(userId);
+		List<Task> tasks = user.getTasks();
+		
+		
+		
+		int taskId = tasks.isEmpty() ? 1 : tasks.get(tasks.size()-1).getTId() + 1;
+		
+		task.setTId(taskId);
+		task.setUId(userId);
+		
+		return taskService.addTaskToUser(task);
+		
+
+	}
+	
+	@PutMapping("/task")
+	public Task updateTask(@PathVariable("user_id") long userId, @RequestBody Task task ) {
+		
+		task.setUId(userId);
+		
+		return taskService.updateTaskOfUser(task);
+	}
+	
+	@DeleteMapping("/task/{task_id}")
+	public String deleteTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
+		TaskId tId = new TaskId(taskId, userId);
+		
+		taskService.deleteTask(tId);
+		
+		return "Deleted Task #"+taskId+ " from User with ID #"+userId;
+	}
 	
 }

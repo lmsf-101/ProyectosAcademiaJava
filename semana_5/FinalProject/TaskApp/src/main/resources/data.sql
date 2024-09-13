@@ -5,7 +5,8 @@ INSERT INTO `users` (name, password) VALUES
 	('cvouls2', 'cilka');
 
 
-INSERT INTO `tasks` (`status`, `title`, `u_id`) VALUES 
-	(0, 'Test 1', 2),
-	(0, 'Test 2', 2),
-	(1, 'Test 3', 1);
+INSERT INTO `tasks` (`status`, `title`, `user_id`, `task_id`) VALUES 
+	(0, 'Test 1', 2, 1),
+	(0, 'Test 4', 2, 4),
+	(0, 'Test 2', 2, 2),
+	(1, 'Test 3', 1, 1);

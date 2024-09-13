@@ -23,6 +23,12 @@ public interface TaskRepository extends JpaRepository<Task, TaskId> {
 	@Query("SELECT t FROM Task t WHERE t.tId = :taskId AND t.uId = :userId")
 	Optional<Task> findTaskByUser(int taskId, long userId);
 	
+	@Query("SELECT COUNT(*) FROM Task t WHERE t.uId = :userId")
+	long countTasks(long userId);
+	
+	@Query("SELECT t FROM Task t WHERE t.uId = :userId ORDER BY t.tId")
+	List<Task> orderedTasks(long userId);
+	
 	//Task findByTaskId(int taskId, long userId);
 
 }

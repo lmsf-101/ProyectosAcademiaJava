@@ -37,6 +37,11 @@ public class TaskServiceImpl implements TaskService{
 				
 				);
 	}
+	
+	@Override
+	public long countTasks(long userId) {
+		return taskRepository.countTasks(userId);
+	}
 
 	@Override
 	public List<Task> getTasksOfUser(long userId) {
@@ -44,9 +49,14 @@ public class TaskServiceImpl implements TaskService{
 	}
 	
 	@Transactional
-	
-	public Task updateTask(Task task) {
-		return null;
+	public Task updateTaskOfUser(Task task) {
+		
+		Task oldTask = getTaskByUser(task.getUId(), task.getTId());
+		
+		oldTask.setTitle(task.getTitle());
+		oldTask.setStatus(task.getStatus());
+		
+		return taskRepository.save(oldTask);
 	
 	}
 
@@ -56,6 +66,4 @@ public class TaskServiceImpl implements TaskService{
 		taskRepository.deleteById(id);
 		
 	}
-	
-	
 }
