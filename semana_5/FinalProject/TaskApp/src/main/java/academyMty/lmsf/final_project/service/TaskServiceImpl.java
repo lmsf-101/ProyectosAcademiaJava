@@ -1,13 +1,13 @@
 package academyMty.lmsf.final_project.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academyMty.lmsf.final_project.repository.TaskRepository;
 import academyMty.lmsf.final_project.model.Task;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -42,17 +42,14 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Override
-	public Optional<Task> getTaskById(int id) {
-		Optional<Task> retrieveTask = taskRepository.findById(id);
+	public Task getTaskById(int id) {
+		Task retrieveTask = taskRepository.findById(id)
+				.orElseThrow(
+					() -> new EntityNotFoundException("No task of ID #"+id+ " exists in the list....")
+						);
+				
 		
 		return retrieveTask;
-	}
-
-	@Override
-	public List<Task> getTaskByTitle(String title) {
-		List<Task> matchTasks = taskRepository.getTaskByTitleIgnoreCaseContaining(title);
-		
-		return matchTasks;
 	}
 
 	@Override

@@ -16,7 +16,7 @@
 		<p>Hello World!</p>
 		
 		<h4> Add a new Task : </h4>
-		<form method="POST" th:object="${task}">
+		<form method="POST" th:object="${task}" th:action="@{/list}">
 			<input th:field="*{title}" type="text" placeholder="Enter task title"/>
 			
 			<input type="submit" value="Add Task">

@@ -1,3 +1,5 @@
+<!-- View for editing an existing task's attributes -->
+
 <!DOCTYPE html>
 <html xmlns="http:/ /www.w3.org/1999/xhtml" xmlns:th="http:/ /www.thymeleaf.org">  
 	<head>    
@@ -5,7 +7,12 @@
 	</head>  
 	<body>
 		<h2>Edit Task</h2>
+		
+		<!-- Pre-populate the form with the existing task details : -->
+		
 		<form role="form" method="POST" th:action="@{/list/task/{id}(id=${editTask.ID})}" th:object="${editTask}">
+			
+			<!-- Hidden form that contains the task ID -->
 			<input type="hidden" th:field="*{ID}">
 			<label for="title">Title:</label><br>
 			<input id="title" type="text" th:field="*{title}" th:value="${editTask.title}" placeholder="Enter new title: "><br><br>

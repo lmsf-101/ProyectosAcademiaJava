@@ -10,9 +10,8 @@ import academyMty.lmsf.final_project.model.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 	
+	 // Get list of tasks order by the status:
 	 @Query("SELECT t FROM Task t ORDER BY t.status ASC")
 	 List<Task> findAllOrderByStatus();
-	 
-	 List<Task> getTaskByTitleIgnoreCaseContaining(String title);
 	
 }
