@@ -1,12 +1,9 @@
 package academyMty.lmsf.final_project.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import academyMty.lmsf.final_project.model.Task;
-import academyMty.lmsf.final_project.model.Task.Status;
 import academyMty.lmsf.final_project.model.TaskId;
-import academyMty.lmsf.final_project.model.User;
 
 public interface TaskService {
 	

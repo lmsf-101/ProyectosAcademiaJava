@@ -1,14 +1,12 @@
 package academyMty.lmsf.final_project.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.model.TaskId;
-import academyMty.lmsf.final_project.model.User;
 import academyMty.lmsf.final_project.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;

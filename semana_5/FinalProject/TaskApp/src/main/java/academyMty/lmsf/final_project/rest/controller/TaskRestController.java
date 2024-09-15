@@ -1,7 +1,6 @@
 package academyMty.lmsf.final_project.rest.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/user/{user_id}")
+@RequestMapping(path = "/api/user/{user_id}", produces = "application/json")
 public class TaskRestController {
 	
 	//TODO Define CRUD operations for Composite Key

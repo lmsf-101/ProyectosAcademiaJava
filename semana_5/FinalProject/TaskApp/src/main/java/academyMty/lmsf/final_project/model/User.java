@@ -1,10 +1,7 @@
 package academyMty.lmsf.final_project.model;
 
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,7 +18,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long userID;
+	private long ID;
 	
 	@Column(nullable = false, unique = true)
 	private String name;

@@ -32,7 +32,7 @@ public class Task implements Comparable<Task> {
 	
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "userID", insertable = false, updatable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "ID", insertable = false, updatable = false)
 	private User user;
 	
 	public enum Status {
