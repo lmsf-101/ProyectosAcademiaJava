@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>academyMty.lmsf</groupId>
-	<artifactId>task_app</artifactId>
+	<artifactId>task_mvc</artifactId>
 	<version>0.0.1-FINAL_PROJECT</version>
-	<name>Task_API</name>
-	<description>Task application that serves as a Final project for XIDERAL Java Academy Mty - August 2024</description>
+	<name>Task_MVC</name>
+	<description>Task Model-View-Controller application that serves as a Final project for XIDERAL Java Academy Mty - August 2024</description>
 	<url/>
 	<licenses>
 		<license/>
