@@ -65,11 +65,7 @@ public class TaskController {
 	@PostMapping("/task/{id}")
 	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") Task editTask) {
 		
-		log.info("Changing to new task : " + editTask);
-		
 		taskService.updateTask(editTask);
-		
-		showList();
 		
 		return "redirect:/list";
 	}
@@ -94,11 +90,7 @@ public class TaskController {
 	@DeleteMapping("/task/delete/{id}")
 	public String confirmTaskDelete(@PathVariable("id") int id) {
 		
-		log.info("Deleting task with ID # " + id);
-		
 		taskService.removeTaskById(id);
-		
-		showList();
 		
 		return "redirect:/list";
 	}
@@ -107,15 +99,10 @@ public class TaskController {
 	@PostMapping
 	public String addNewTask(@ModelAttribute Task task) {
 		
-		log.info("Adding the new task : " + task);
 		task.setID(0);
 		task.setStatus(Task.Status.TODO);
-		//tasks.addTask(task);
 		
 		taskService.addTask(task);
-		
-		
-		showList();
 
 		
 		return "redirect:/list";
@@ -127,9 +114,4 @@ public class TaskController {
 		return "restricted-access";
 	}
 	
-	
-	//TODO remove showList();
-	private void showList() {
-		log.info("\nNew TaskList : " + taskService.findAllTasks().toString() + "\n");
-	}
 }

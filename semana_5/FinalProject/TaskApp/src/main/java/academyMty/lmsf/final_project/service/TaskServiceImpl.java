@@ -32,6 +32,9 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	@Transactional
 	public Task updateTask(Task task) {
+		
+		getTaskById(task.getID());
+		
 		return taskRepository.save(task);
 	}
 
