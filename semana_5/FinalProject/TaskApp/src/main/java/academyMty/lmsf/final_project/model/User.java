@@ -1,6 +1,7 @@
 package academyMty.lmsf.final_project.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,9 +29,7 @@ public class User {
 	
 	@JsonIgnore
 	@JsonManagedReference
-	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-	//@JoinColumn(name="user")
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderBy("task_id ASC")
-	private List<Task> tasks;
+	private List<Task> tasks = new ArrayList<>();
 }

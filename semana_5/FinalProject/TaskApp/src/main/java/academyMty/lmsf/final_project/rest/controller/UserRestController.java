@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,108 +13,79 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.model.User;
-import academyMty.lmsf.final_project.service.TaskService;
 import academyMty.lmsf.final_project.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/user/{user_id}")
+@RequestMapping("/api/users")
 public class UserRestController {
 	
-//	@Autowired
-//	private UserService userService;
-//	
-//	@GetMapping("/tasks")
-//	public List<Task> getAllTasks(@PathVariable long userId) {
-//		return userService.getTasksOfUser(userId);
-//	}
-//	
-//	@GetMapping("/task/{task_id}")
-//	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-//		return userService.getTaskByUser(userId, taskId);
-//	}
+	@Autowired
+	private UserService userService;
 	
-//	
-//	@Autowired
-//	private TaskService taskService;
-//	
-//	@Autowired
-//	private UserService userService;
-//
-//	@GetMapping
-//	public User getUserById(@PathVariable("user_id") long id) {
-//		User user = userService.getUserById(id);
-//		return user;
-//	}
-//	
-//	@GetMapping("/task")
-//	public List<Task> getUsersTasks(@PathVariable("user_id") long userId) {
-//		
-//		User user = userService.getUserById(userId);
-//		
-//		List<Task> tasks = taskService.findByUser(user);
-//
-//		return tasks;
-//	}
-//	
-//	@GetMapping("/task/{task_id}")
-//	public Task getTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-//		
-//		User user = userService.getUserById(userId);
-//		
-//		Task task = user.getTasks().get(taskId);
-//		
-//		return taskService.getTaskById(task.getID());
-//		
-//	}
-//	
-//	@PostMapping("/task")
-//	public Task saveTask(@PathVariable("user_id") long userId, @RequestBody Task task) {
-//		
-//		User user = userService.getUserById(userId);
-//		
-//		task.setID(0);
-//		task.setUser(user);
-//		
-//		return taskService.addTask(task);
-//		
-//	}
-//	
-//	@PutMapping("/task")
-//	public String updateTask(@PathVariable("user_id") long userId, @RequestBody Task newTask) {
-//		
-//		//User user = userService.getUserById(userId);
-////		Map<Integer,Task> tasks = user.getTasks();
-////		
-////		Task task = tasks.get(newTask.getID());
-////		
-////		newTask.setID(task.getID());
-//		
-//		taskService.updateTask(newTask);
-//		
-//		
-//		//userService.changeTask(userId, task);
-//		
-//		return "Changed task for User #"+userId;
-//	}
-//	
-//	
-//	@DeleteMapping("/task/{task_id}")
-//	public String deleteTask(@PathVariable("user_id") long userId, @PathVariable("task_id") int taskId) {
-//		
-//		User user = userService.getUserById(userId);
-//		
-//		Task task = user.getTasks().get(taskId);
-//		
-//		if(task != null) {
-//			taskService.removeTaskById(task.getID());
-//			return "Deleted task of ID #"+taskId+ " for User #"+userId;
-//		}
-//		
-//		return "";
-//	}
-//	
+	@GetMapping
+	public List<User> getAllUsers() {
+		return userService.getAllUsers();
+	}
+	
+	@GetMapping("/{user_id}")
+	public User getUser(@PathVariable("user_id") long id) {
+		return userService.getUserById(id);
+	}
+	
+	@PostMapping("/create")
+	public String createUser(@RequestBody User newUser) {
+		
+		newUser.setID(0);
+		
+		userService.createUser(newUser);
+		
+		
+		return "Created new user : \n"+ newUser;
+		
+	}
+	
+	@PutMapping("/{user_id}")
+	public String updateUser(@PathVariable("user_id") long id, @RequestBody User user) {
+		
+		userService.getUserById(id);
+		
+		user.setID(id);
+		
+		userService.updateUser(user);
+		
+
+		return "Updated user with ID # " + id;
+	}
+	
+	@PatchMapping("/{user_id}/password")
+	public String changePassword(@PathVariable("user_id") long id, @RequestBody User user) {
+		
+		user.setID(id);
+		
+		if(user.getPassword() != null) {
+			userService.changePassword(user);
+		
+			return "Changed password for user with ID #"+ user.getID();
+		}
+		
+		throw new RuntimeException("Password cannot be empty. Please try again.");
+	}
+	
+	@DeleteMapping("/{user_id}")
+	public String deleteUser(@PathVariable("user_id") long id) {
+		
+		try {
+			userService.getUserById(id);
+		} catch (EntityNotFoundException e) {
+			return "";
+		}
+		
+		userService.deleteUser(id);
+		
+		return "User with ID # " + id + " was deleted";
+	}
 }

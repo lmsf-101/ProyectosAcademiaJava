@@ -25,9 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(path = "/api/user/{user_id}", produces = "application/json")
 public class TaskRestController {
 	
-	//TODO Define CRUD operations for Composite Key
-	
-	
 	@Autowired
 	private TaskService taskService;
 	

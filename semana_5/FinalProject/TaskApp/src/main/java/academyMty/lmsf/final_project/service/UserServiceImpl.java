@@ -1,8 +1,6 @@
 package academyMty.lmsf.final_project.service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,19 +26,14 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public User changePassword(long id, String password) {
+	public void changePassword(User user) {
 		
-		if (userRepository.existsById(id)) {
-			User user = getUserById(id);
-			
-			user.setPassword(password);
-			
-			updateUser(user);
-			
-			return user;
-		}
+		User retrievedUser = getUserById(user.getID());
 		
-		return null;
+		retrievedUser.setPassword(user.getPassword());
+		
+		updateUser(retrievedUser);
+		
 		
 	}
 	
