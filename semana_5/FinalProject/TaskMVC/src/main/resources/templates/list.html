@@ -5,22 +5,29 @@
 	</head>  
 	<body>    
 		
+		<!-- Simple form button to logout the current user: -->
 		<form th:action="@{/logout}" method="POST">
 			<input type="submit" value="Log out">
 		</form>
 		
 		<h2>List of Tasks :</h2>
 		
-		<div th:each="curTask : ${curList}">
+		<!-- For each of the tasks included in the current list ....-->
+		<div th:each="curTask : ${curList}"> 
+			<!-- Display the task's title and status : -->
 			<b th:text="${curTask.title}">Title</b>
 			<p th:text="${curTask.status}">Status:</p>
+			
+			<!-- Create hyperlinks that directs the user to either the editing or delete page of the specific task : -->
 			<a th:href="@{/list/task/{id}(id=${curTask.ID})}">Edit Task</a>
 			<a th:href="@{/list/task/delete/{id}(id=${curTask.ID})}">Delete Task</a>
 		</div>
 		
-		<p>Hello World!</p>
+		
 		
 		<h4> Add a new Task : </h4>
+		
+		<!-- Simple form section that creates a new task for the list: -->
 		<form method="POST" th:object="${task}" th:action="@{/list}">
 			<input th:field="*{title}" type="text" placeholder="Enter task title"/>
 			

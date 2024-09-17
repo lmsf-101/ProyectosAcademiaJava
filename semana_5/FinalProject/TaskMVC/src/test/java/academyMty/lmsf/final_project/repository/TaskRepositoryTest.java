@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -27,21 +25,28 @@ class TaskRepositoryTest {
 	@Autowired
 	TestEntityManager testEntityManager;
 	
+	// Example task object
 	Task t1 = new Task(0, "T1", Task.Status.TODO);;
 	
+	// Example list of tasks
 	List<Task> exampleTasks = List.of(
 			t1,
 			new Task(0, "T2", Task.Status.DONE),
 			 new Task(0, "T3", Task.Status.TODO)
 			);
 	
+	// Before each test:
 	@BeforeEach
 	void setUp() {
+		// Reset the database by deleting all entities
 		taskRepository.deleteAll();
 		
+		// Save all the tasks examples from the list
 		taskRepository.saveAll(exampleTasks);
 	}
 
+	
+	// Check if the list of tasks retrieved are order by their Status:
 	@Test
 	void findTasksOrderByStatus() {
 		
@@ -51,28 +56,30 @@ class TaskRepositoryTest {
 		
 		List<Task> orderedTasks = taskRepository.findAllOrderByStatus();
 		
-		
+		// Are they different in terms of order?
 		assertNotEquals(tasks, orderedTasks);
 		
+		// Sort the original task
 		tasks.sort((t1, t2) -> t1.getStatus().compareTo(t2.getStatus()));
 		
 		assertEquals(tasks, orderedTasks);
 	}
 
+	// Test out the correct retrieval of an individual task:
 	@Test
 	void findTaskFound() {
 		
-		System.out.println(taskRepository.findAll().toString());
-		
+		// Retrieve the ID of a particular task using the TestEntityManager:
 		final int ID = testEntityManager.getId(t1, Integer.class);
 		
+		// Get the task by the retrieved ID
 		Optional<Task> retrieveTask = taskRepository.findById(ID);
 		
-		System.out.println("Retrieved task : " + retrieveTask.get());
-		
+		// Check if the title is the expected "T1":
 		assertEquals("T1", retrieveTask.get().getTitle());
 	}
 	
+	// Failure test when an invalid ID is passed to findById():
 	@Test
 	void findTaskNotFound() {
 		
@@ -80,26 +87,28 @@ class TaskRepositoryTest {
 		
 		Optional<Task> invalidTask = taskRepository.findById(INVALID_ID);
 		
-		System.out.println("Is task object empty ? : " + invalidTask.isEmpty());
-		
+		// Check if the repository return an empty value
 		assertTrue(invalidTask.isEmpty());
 		
 		
 	}
-	
+
+	// Test out the save feature of the repository:
 	@Test
 	void saveTask() {
 		
+		// New task object to be added:
 		Task newTask = new Task(0, "New task !", Task.Status.TODO);
 		
+		// Save it to the database with the repository
 		taskRepository.save(newTask);
 		
-		//List<Task> tasks = taskRepository.findAll();
-		
+		// Check if the newTask is included in the list:
 		assertTrue(taskRepository.findAll().contains(newTask));
+		
+		// Is the list now of size 4?
 		assertEquals(4, taskRepository.count());
 		
-		System.out.println(taskRepository.findAll().toString());
 	}
 	
 

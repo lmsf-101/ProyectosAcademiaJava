@@ -1,32 +1,23 @@
 package academyMty.lmsf.final_project.mvc.controller;
 
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.util.ArrayList;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.service.TaskServiceImpl;
@@ -49,6 +40,7 @@ class TaskControllerTest {
 		exampleTask = new Task(1, "Test 1", Task.Status.TODO);
 	}
 	
+	// Test out the list view
 	@Test
 	void testListView() throws Exception {
 		
@@ -59,16 +51,18 @@ class TaskControllerTest {
 				new Task(3, "Test 3", Task.Status.TODO)
 				);
 				
-		
+		// Mock findAllTasks() by returning the create exampleTaskList:
 		when(taskService.findAllTasks()).thenReturn(exampleTaskList);
 		
-		mockMvc.perform(get("/list"))
-		.andExpect(model().attribute("curList", exampleTaskList))
-		.andExpect(view().name("list"))
-		.andExpect(status().isOk());
+		mockMvc.perform(get("/list")) // <- perform the GET request at "/list"
+		.andExpect(model().attribute("curList", exampleTaskList)) // The model must have the list as attribute
+		.andExpect(view().name("list")) // Return the "list" view
+		.andExpect(status().isOk()); // The status is OK
 		
 	}
 
+	
+	// Test editing tasks by rendering the “edit-task” view and verifying the POST submission of the form.
 	@Test
 	void testTaskEdit() throws Exception {
 		
@@ -95,6 +89,8 @@ class TaskControllerTest {
 		verify(taskService).getTaskById(newTask.getID());
 	}
 	
+	
+	// Test the creation of a new task by adding it to the list and redirecting to the "/list" URL:
 	@Test
 	void testTaskSave() throws Exception {
 
@@ -110,9 +106,9 @@ class TaskControllerTest {
 		verify(taskService).addTask(any(Task.class));
 	}
 	
+	// Test the task removal from the list by rendering the "delete-task" view and verifying the POST submission:
 	@Test
 	void testTaskDelete() throws Exception {
-		//Task newTask = new Task(1, "New task", Task.Status.DONE);
 		
 		final String URI = "/list/task/delete/{id}";
 		

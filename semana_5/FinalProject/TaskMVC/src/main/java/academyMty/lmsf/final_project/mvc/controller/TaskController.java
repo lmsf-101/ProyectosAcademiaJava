@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import academyMty.lmsf.final_project.model.Task;
 import academyMty.lmsf.final_project.service.TaskService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
-@RequestMapping("/list")
+@RequestMapping("/list") // Base URL
 public class TaskController {
-	
+
+	// Inject the Service layer to interact with the database:
 	@Autowired
 	private TaskService taskService;
 	
@@ -60,17 +59,6 @@ public class TaskController {
 		return "edit-task";
 	}
 	
-	
-	// Save changes for an existing task:
-	@PostMapping("/task/{id}")
-	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") Task editTask) {
-		
-		taskService.updateTask(editTask);
-		
-		return "redirect:/list";
-	}
-	
-	
 	// Retrieve the view for deleting an existing task:
 	@GetMapping("/task/delete/{id}")
 	public String deleteTask(@PathVariable("id") int id,  Model model) {
@@ -83,6 +71,15 @@ public class TaskController {
 		
 		return "delete-task";
 		
+	}
+	
+	// Save changes for an existing task:
+	@PostMapping("/task/{id}")
+	public String saveTaskChanges(@PathVariable("id") int id, @ModelAttribute("editTask") Task editTask) {
+		
+		taskService.updateTask(editTask);
+		
+		return "redirect:/list";
 	}
 	
 	
