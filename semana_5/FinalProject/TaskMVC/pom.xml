@@ -9,17 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>academyMty.lmsf</groupId>
-<<<<<<<< HEAD:semana_5/FinalProject/TaskMVC/pom.xml
 	<artifactId>task_mvc</artifactId>
 	<version>0.0.1-FINAL_PROJECT</version>
 	<name>Task_MVC</name>
 	<description>Task Model-View-Controller application that serves as a Final project for XIDERAL Java Academy Mty - August 2024</description>
-========
-	<artifactId>task_rest</artifactId>
-	<version>0.0.1-FINAL_PROJECT</version>
-	<name>Task_REST</name>
-	<description>RESTFul version of the Task application that serves as a Final project for XIDERAL Java Academy Mty - August 2024</description>
->>>>>>>> s5_rest:semana_5/FinalProject/TaskREST/pom.xml
 	<url/>
 	<licenses>
 		<license/>
@@ -71,7 +64,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-<<<<<<<< HEAD:semana_5/FinalProject/TaskMVC/pom.xml
 	<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -90,8 +82,6 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-========
->>>>>>>> s5_rest:semana_5/FinalProject/TaskREST/pom.xml
 	</dependencies>
 
 	<build>
