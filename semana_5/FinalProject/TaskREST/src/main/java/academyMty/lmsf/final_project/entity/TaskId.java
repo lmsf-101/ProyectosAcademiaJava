@@ -1,4 +1,4 @@
-package academyMty.lmsf.final_project.model;
+package academyMty.lmsf.final_project.entity;
 
 import java.io.Serializable;
 
@@ -7,10 +7,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Data
 public class TaskId implements Serializable {
 	
 	private int tId;
